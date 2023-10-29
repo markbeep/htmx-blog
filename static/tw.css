@@ -29,6 +29,13 @@
       @apply mt-2;
       @apply mb-1;
     }
+    p {
+      @apply my-1;
+    }
+    hr {
+      @apply w-1/2;
+      @apply my-4;
+    }
     ul {
       @apply list-disc;
       @apply ml-4;

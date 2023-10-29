@@ -3,7 +3,6 @@ title: "Building an Overkill Home Server"
 date: 2023-01-07T07:07:21+01:00
 showDate: true
 mathjax: true
-justify: true
 tags: ["devops", "kubernetes", "docker", "server"]
 ---
 

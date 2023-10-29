@@ -469,6 +469,17 @@ h4 {
   margin-bottom: 0.25rem;
 }
 
+p {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+hr {
+  width: 50%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 ul {
   list-style-type: disc;
   margin-left: 1rem;
@@ -614,10 +625,6 @@ img {
   visibility: visible;
 }
 
-.collapse {
-  visibility: collapse;
-}
-
 .static {
   position: static;
 }
@@ -688,10 +695,6 @@ img {
   display: flex;
 }
 
-.table {
-  display: table;
-}
-
 .grid {
   display: grid;
 }
@@ -730,10 +733,6 @@ img {
 
 .max-w-4xl {
   max-width: 56rem;
-}
-
-.border-collapse {
-  border-collapse: collapse;
 }
 
 .flex-col {
@@ -818,15 +817,6 @@ img {
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
-}
-
-.italic {
-  font-style: italic;
-}
-
-.lining-nums {
-  --tw-numeric-figure: lining-nums;
-  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
 }
 
 .underline {

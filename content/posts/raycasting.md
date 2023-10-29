@@ -3,7 +3,6 @@ title: "3D Raycasting"
 date: 2022-03-14T08:11:22+01:00
 showDate: true
 tags: ["visual", "programming", "c++"]
-justify: true
 ---
 
 # Becoming a Coding Train Fanboy
