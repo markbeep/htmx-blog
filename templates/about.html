@@ -1,0 +1,37 @@
+{{ define "head" }} <title>About</title> {{ end }} {{ define "content" }}
+
+<div
+  class="flex h-screen w-full items-center flex-col dark:bg-slate-800 dark:text-slate-50"
+>
+  <main class="max-w-2xl flex flex-col flex-wrap mx-2">
+    <header class="text-3xl mt-20">About</header>
+    <p>
+      Hello, I’m Mark. Currently in my bachelor of computer science at ETH
+      Zurich. I like to code a lot. You’ll never see me without tons of projects
+      on the side. I have too many projects I wanna do, but not enough time to
+      work on them all. Friends usually ask “What projects are you working on?”
+      instead of “How’s studying going?”
+    </p>
+    <p>
+      Languages I consider myself fluent in are Python, C and Typescript. I like
+      to create bare metal and fast applications with C but I also enjoy working
+      on cool websites with React.js on Typescript.
+    </p>
+    <p>
+      Lately, I’ve also worked a lot with Docker and Kubernetes. Docker is my
+      favorite tool right now and I usually try to deploy all my applications
+      with a Dockerfile or docker-compose file so that I can then easily deploy
+      it on my Kubernetes cluster. Also makes it a lot easier for anyone to run
+      it on different devices.
+    </p>
+    <p>
+      <a href="https://github.com/anuraghazra/github-readme-stats"
+        ><img
+          src="https://github-readme-stats.vercel.app/api/wakatime?username=markbeep&amp;theme=nord&amp;langs_count=10"
+          alt="Mark’s wakatime stats"
+      /></a>
+    </p>
+  </main>
+  {{ template "navbar" .}}
+</div>
+{{ end }}

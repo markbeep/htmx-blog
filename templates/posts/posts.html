@@ -1,0 +1,28 @@
+{{ define "content" }}
+
+<div
+  class="flex h-screen w-screen items-center flex-col dark:bg-slate-800 dark:text-slate-50"
+>
+  <main class="max-w-4xl flex flex-col space-y-2 flex-wrap mx-2">
+    <header class="text-3xl mt-20 mb-10">Posts</header>
+
+    {{ range .Posts }} {{ if not .Draft }}
+    <span
+      >{{ .Date }} --
+      <a
+        href="{{ .Path }}"
+        hx-swap="innerHTML"
+        hx-get="{{ .Path }}"
+        hx-target="body"
+        hx-push-url="true"
+        class="underline"
+        preload
+        >{{ .Title }}</a
+      ></span
+    >
+    {{ end }} {{ end }}
+  </main>
+  {{ template "navbar" . }}
+</div>
+
+{{ end }}

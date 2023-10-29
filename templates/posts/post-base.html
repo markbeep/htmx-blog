@@ -1,0 +1,38 @@
+{{ define "content" }}
+
+<div
+  class="flex h-full w-full items-center flex-col dark:bg-slate-800 dark:text-slate-50"
+>
+  <main
+    class="max-w-2xl flex flex-col flex-wrap mx-2 {{ if .Post.Justify }}text-justify{{ end }}"
+  >
+    <header class="text-3xl mt-20">{{ .Post.Title }}</header>
+    <h3 class="mt-2">{{ .Post.Date }} · {{ .Post.Words }} words</h3>
+    <hr class="border-t-1 border-gray-800 dark:border-slate-50 my-6" />
+
+    {{ if .Post.Mathjax }}
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      type="text/javascript"
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    {{ end }} {{ block "post" .}}{{ end }}
+  </main>
+  {{ template "navbar" .}}
+</div>
+
+{{ end }}

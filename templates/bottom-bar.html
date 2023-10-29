@@ -1,0 +1,59 @@
+{{ define "navbar" }}
+<div>
+  <div class="flex-col space-x-2 text-lg underline">
+    <hr class="border-t-1 border-gray-800 dark:border-slate-50 my-6" />
+    <a
+      href="/"
+      hx-swap="innerHTML"
+      hx-get="/"
+      hx-target="body"
+      hx-push-url="true"
+      preload
+      >home</a
+    >
+    {{- if ne .Path "posts" -}}
+    <a
+      href="/posts"
+      hx-swap="innerHTML"
+      hx-get="/posts"
+      hx-target="body"
+      hx-push-url="true"
+      preload
+      >posts</a
+    >
+    {{- end -}} {{- if ne .Path "polyring" -}}
+    <a
+      href="/polyring"
+      hx-swap="innerHTML"
+      hx-get="/polyring"
+      hx-target="body"
+      hx-push-url="true"
+      preload
+      >polyring</a
+    >
+    {{- end -}} {{- if ne .Path "about" -}}
+    <a
+      href="/about"
+      hx-swap="innerHTML"
+      hx-get="/about"
+      hx-target="body"
+      hx-push-url="true"
+      preload
+      >who is mark?</a
+    >
+    {{- end -}}
+    <a href="https://github.com/markbeep">github</a>
+  </div>
+  <div class="mt-2 text-base text-center">
+    <p>made with <a href="https://htmx.org" class="underline">htmx</a></p>
+    <p>
+      theme inspired by
+      <a
+        href="https://github.com/victoriadrake/hugo-theme-sam"
+        class="underline"
+        >Call me Sam</a
+      >
+    </p>
+  </div>
+</div>
+{{ end }}
