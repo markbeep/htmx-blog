@@ -15,3 +15,4 @@ Additionally get `tailwindcss` and run `tailwindcss -i static/tw.css -o static/m
 - [ ] Get the website colors adjusted
 - [ ] Make the code block colors nicer
 - [ ] Add tags
+- [ ] Add proper 404 page

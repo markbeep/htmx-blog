@@ -17,9 +17,13 @@
       src="https://plausible.markc.su/js/script.js"
     ></script>
     {{ block "head" .}}
-    <title>{{ block "title" .}}Hello, I'm Mark{{ end }}</title>
-    <meta name="description" content="A coding blog" />
+    <title>Hello, I'm Mark</title>
+    <meta name="description" content="Mark's coding blog" />
     {{ end }}
+    <meta name="og:site_name" content="Mark's Blog" />
+    <meta name="og:type" content="blog" />
+    <meta name="og:image" content="/static/tn.png" />
+    <meta name="og:twitter" content="/static/tn.png" />
   </head>
   <body class="dark" hx-ext="preload">
     <!--[if lt IE 7]>
