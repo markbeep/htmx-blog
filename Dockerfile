@@ -10,6 +10,8 @@ COPY static/pandoc.css pandoc.css
 RUN mkdir -p generated && find content -type d -exec mkdir -p -- generated/{} \;
 # Turns all markdown files into the equivalent html file
 RUN find content -iname "*.md" -type f -exec sh -c 'pandoc "${0}" -s --template pandoc.html --css pandoc.css --highlight-style breezedark -o "./generated/${0%.md}.html"' {} \;
+# Change all mathjax inline to inline-block, so they're actually inline
+RUN find generated -iname "*.html" -type f -exec sh -c 'sed -i "s/math inline/math inline-block/g" ${0}' {} \;
 
 
 FROM alpine:3.18 AS build-css
