@@ -1,0 +1,26 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+
+<title>Posts on Mark's Posts</title>
+<link>https://{{ .FullPath }}</link>
+<description>Recent content in Posts on Mark's Blog</description>
+<generator>Mark's Cool Site</generator>
+<language>en-us</language>
+<lastBuildDate>Wed, 13 Sep 2023 22:58:05 +0200</lastBuildDate>
+<atom:link href="https://{{ .FullPath }}/index.xml" rel="self" type="application/rss+xml"/>
+
+{{ range .Posts }} {{ if not .Draft }}
+
+<item>
+<title>{{ .Title }}</title>
+<link>https://{{ $.FullPath }}{{ .Path }}</link>
+<pubDate>{{ .XMLDate }}</pubDate>
+<guid>https://{{ $.FullPath }}{{ .Path }}</guid>
+<description>{{ .Description }}</description>
+</item>
+
+{{ end }}
+{{ end }}
+
+</channel>
+</rss>

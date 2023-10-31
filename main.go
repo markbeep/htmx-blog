@@ -28,17 +28,19 @@ var (
 var imageFormats = []string{"jpg", "jpeg", "gif", "png", "gif"}
 
 type Post struct {
-	Title      string
-	Date       string
-	ActualDate time.Time
-	Path       string
-	HTMLPath   string
-	Tags       []string
-	ShowDate   bool
-	Justify    bool
-	Draft      bool
-	Mathjax    bool
-	Words      int
+	Title       string
+	Date        string
+	XMLDate     string
+	ActualDate  time.Time
+	Path        string
+	HTMLPath    string
+	Tags        []string
+	ShowDate    bool
+	Justify     bool
+	Draft       bool
+	Mathjax     bool
+	Words       int
+	Description string
 }
 
 // Takes the metadata tags located at the top of a markdown file and returns a Post struct
@@ -56,6 +58,7 @@ func getMarkdownMetadata(path string) (*Post, error) {
 	}
 	post := Post{}
 	post.Words = len(strings.Split(string(data), " "))
+	post.Description = "" // TODO: add a way to get a post description
 	for i, l := range lines {
 		if i == 0 {
 			continue
@@ -79,6 +82,7 @@ func getMarkdownMetadata(path string) (*Post, error) {
 				continue
 			}
 			post.Date = datetime.Format("Mon Jan 02, 2006")
+			post.XMLDate = datetime.Format("Mon, 02 Jan 2006 15:04:05 -0700")
 			post.ActualDate = datetime
 		case "tags":
 			tags := []string{}
@@ -112,11 +116,11 @@ func main() {
 	posts := map[string]Post{}
 	// Find all generated files
 	err := filepath.Walk("generated/content/posts", func(path string, info fs.FileInfo, err error) error {
-		if !strings.HasSuffix(path, ".html") {
+		if !strings.HasSuffix(path, ".html") || err != nil {
 			return nil
 		}
 		// Get the equivalent markdown file
-		markdownPath := strings.TrimLeft(path, "generated/")
+		markdownPath := strings.TrimPrefix(path, "generated/")
 		markdownPath = strings.Replace(markdownPath, ".html", ".md", 1)
 		post, err := getMarkdownMetadata(markdownPath)
 		if err != nil {
@@ -124,7 +128,7 @@ func main() {
 			return nil
 		}
 		post.HTMLPath = path
-		websitePath := strings.TrimLeft(path, "generated/content")
+		websitePath := strings.TrimPrefix(path, "generated/content/")
 		websitePath = "/" + strings.Replace(websitePath, ".html", "", 1)
 		post.Path = websitePath
 		posts[websitePath] = *post
@@ -135,6 +139,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	sortedPosts := []Post{}
+	for _, p := range posts {
+		sortedPosts = append(sortedPosts, p)
+	}
+	sort.Slice(sortedPosts, func(i, j int) bool {
+		return sortedPosts[i].ActualDate.After(sortedPosts[j].ActualDate)
+	})
 
 	// static
 	r.Get("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
@@ -157,6 +168,7 @@ func main() {
 			logger.Warn(err.Error())
 		}
 	})
+
 	// about me
 	r.Get("/about", func(w http.ResponseWriter, _ *http.Request) {
 		tmpl := template.Must(template.ParseFiles("templates/base.html", "templates/bottom-bar.html", "templates/about.html"))
@@ -180,17 +192,26 @@ func main() {
 	r.Route("/posts", func(r chi.Router) {
 		r.Get("/", func(w http.ResponseWriter, _ *http.Request) {
 			tmpl := template.Must(template.ParseFiles("templates/base.html", "templates/bottom-bar.html", "templates/posts/posts.html"))
-			sortedPosts := []Post{}
-			for _, p := range posts {
-				sortedPosts = append(sortedPosts, p)
-			}
-			sort.Slice(sortedPosts, func(i, j int) bool {
-				return sortedPosts[i].ActualDate.After(sortedPosts[j].ActualDate)
-			})
 			tmpl.Execute(w, map[string]any{
 				"Posts": sortedPosts,
 				"Path":  "posts",
 			})
+		})
+		r.Get("/index.xml", func(w http.ResponseWriter, r *http.Request) {
+			tmpl := template.Must(template.ParseFiles("templates/index.xml"))
+			output, err := os.Create("generated/index.xml")
+			if err != nil {
+				logger.Warn(err.Error())
+				w.Write([]byte("404"))
+				return
+			}
+			defer output.Close()
+			log.Print("COUNT ", len(sortedPosts))
+			tmpl.Execute(output, map[string]any{
+				"Posts":    sortedPosts,
+				"FullPath": r.Host,
+			})
+			http.ServeFile(w, r, "generated/index.xml")
 		})
 		// handles all the blog posts
 		r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
