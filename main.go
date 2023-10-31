@@ -142,6 +142,11 @@ func main() {
 	})
 	r.Get("/static/*", func(w http.ResponseWriter, r *http.Request) {
 		path := strings.Trim(r.URL.Path, "/")
+		fileInfo, err := os.Stat(path)
+		if err != nil || fileInfo.IsDir() {
+			w.Write([]byte("404"))
+			return
+		}
 		http.ServeFile(w, r, path)
 	})
 

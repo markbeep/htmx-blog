@@ -687,8 +687,8 @@ img {
   display: block;
 }
 
-.inline {
-  display: inline;
+.inline-block {
+  display: inline-block;
 }
 
 .flex {
@@ -735,6 +735,10 @@ img {
   max-width: 56rem;
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -773,6 +777,10 @@ img {
   overflow: hidden;
 }
 
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
 .border {
   border-width: 1px;
 }
@@ -785,6 +793,18 @@ img {
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.p-10 {
+  padding: 2.5rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .text-left {
