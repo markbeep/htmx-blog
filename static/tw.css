@@ -60,3 +60,6 @@
     }
 }
 
+body {
+  @apply bg-slate-800;
+}

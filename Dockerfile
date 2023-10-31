@@ -3,13 +3,12 @@ FROM pandoc/core:3.1-alpine AS build-pages
 WORKDIR /app
 COPY content content
 COPY templates/pandoc.html pandoc.html
-COPY static/pandoc.css pandoc.css
 
 
 # Creates the same directory structure
 RUN mkdir -p generated && find content -type d -exec mkdir -p -- generated/{} \;
 # Turns all markdown files into the equivalent html file
-RUN find content -iname "*.md" -type f -exec sh -c 'pandoc "${0}" -s --template pandoc.html --css pandoc.css --highlight-style breezedark -o "./generated/${0%.md}.html"' {} \;
+RUN find content -iname "*.md" -type f -exec sh -c 'pandoc "${0}" -s --template pandoc.html --css "" --highlight-style breezedark -o "./generated/${0%.md}.html"' {} \;
 # Change all mathjax inline to inline-block, so they're actually inline
 RUN find generated -iname "*.html" -type f -exec sh -c 'sed -i "s/math inline/math inline-block/g" ${0}' {} \;
 
