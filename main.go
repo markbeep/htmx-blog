@@ -1,12 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
 	"io/fs"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -19,6 +21,11 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/httplog/v2"
+	"github.com/yuin/goldmark"
+
+	"github.com/alecthomas/chroma/v2"
+	chromahtml "github.com/alecthomas/chroma/v2/formatters/html"
+	highlighting "github.com/yuin/goldmark-highlighting/v2"
 )
 
 var (
@@ -33,7 +40,6 @@ type Post struct {
 	XMLDate     string
 	ActualDate  time.Time
 	Path        string
-	HTMLPath    string
 	Tags        []string
 	ShowDate    bool
 	Justify     bool
@@ -41,15 +47,13 @@ type Post struct {
 	Mathjax     bool
 	Words       int
 	Description string
+	buffer      bytes.Buffer // TODO: doesn't seem to be reading this in another thread
+	htmlPath    string
 }
 
 // Takes the metadata tags located at the top of a markdown file and returns a Post struct
-func getMarkdownMetadata(path string) (*Post, error) {
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-	lines := strings.Split(string(data), "\n")
+func getMarkdownMetadata(path string, data *[]byte) (*Post, error) {
+	lines := strings.Split(string(*data), "\n")
 	if len(lines) == 0 {
 		return nil, errors.New("empty markdown file")
 	}
@@ -57,13 +61,15 @@ func getMarkdownMetadata(path string) (*Post, error) {
 		return nil, errors.New("missing metadata or invalid format")
 	}
 	post := Post{}
-	post.Words = len(strings.Split(string(data), " "))
+	post.Words = len(strings.Split(string(*data), " "))
 	post.Description = "" // TODO: add a way to get a post description
+	metadataEndLine := 0
 	for i, l := range lines {
 		if i == 0 {
 			continue
 		}
 		if l == "---" {
+			metadataEndLine = i
 			break
 		}
 		lineValues := strings.SplitN(l, ": ", 2)
@@ -98,6 +104,10 @@ func getMarkdownMetadata(path string) (*Post, error) {
 			post.Mathjax = value == "true"
 		}
 	}
+
+	removedMetadata := strings.Join(strings.Split(string(*data), "\n")[metadataEndLine+1:], "\n")
+	*data = []byte(removedMetadata)
+
 	return &post, nil
 }
 
@@ -107,6 +117,20 @@ func main() {
 		*port = "3000"
 	}
 
+	markdown := goldmark.New(
+		goldmark.WithExtensions(
+			highlighting.NewHighlighting(
+				highlighting.WithStyle("github-dark"),
+				highlighting.WithFormatOptions(
+					chromahtml.ClassPrefix("codeblock"),
+					chromahtml.WithCustomCSS(map[chroma.TokenType]string{
+						chroma.PreWrapper: "padding: 10px; margin: 20px 0 20px 0; border-radius: 10px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);",
+					}),
+				),
+			),
+		),
+	)
+
 	r := chi.NewRouter()
 	logger := httplog.NewLogger("htmx-blog", httplog.Options{
 		LogLevel: slog.LevelDebug,
@@ -115,30 +139,64 @@ func main() {
 
 	posts := map[string]Post{}
 	// Find all generated files
-	err := filepath.Walk("generated/content/posts", func(path string, info fs.FileInfo, err error) error {
-		if !strings.HasSuffix(path, ".html") || err != nil {
+	err := filepath.Walk("content/posts", func(path string, info fs.FileInfo, err error) error {
+		if info.IsDir() {
+			os.MkdirAll("generated/"+path, 0700)
 			return nil
 		}
-		// Get the equivalent markdown file
-		markdownPath := strings.TrimPrefix(path, "generated/")
-		markdownPath = strings.Replace(markdownPath, ".html", ".md", 1)
-		post, err := getMarkdownMetadata(markdownPath)
+		if !strings.HasSuffix(path, ".md") || err != nil {
+			return nil
+		}
+
+		mdFile, err := os.ReadFile(path)
+		if err != nil {
+			return nil
+		}
+		post, err := getMarkdownMetadata(path, &mdFile)
 		if err != nil {
 			logger.Warn(err.Error())
 			return nil
 		}
-		post.HTMLPath = path
-		websitePath := strings.TrimPrefix(path, "generated/content/")
-		websitePath = "/" + strings.Replace(websitePath, ".html", "", 1)
-		post.Path = websitePath
-		posts[websitePath] = *post
-		log.Printf("added post: %s", websitePath)
+
+		post.Path = strings.TrimPrefix(path, "content/")
+		post.Path = "/" + strings.Replace(post.Path, ".md", "", 1)
+		post.htmlPath = "generated/" + strings.Replace(path, ".md", ".html", 1)
+		posts[post.Path] = *post
+		log.Printf("added post: %s", post.Path)
+
+		var postHtmlBuffer bytes.Buffer
+		postHtmlBuffer.WriteString(`{{ define "post" }}`)
+		markdown.Convert(mdFile, &postHtmlBuffer)
+		postHtmlBuffer.WriteString(`{{ end }}`)
+
+		tmpl := template.Must(template.ParseFiles("templates/base.html", "templates/bottom-bar.html", "templates/posts/post-base.html"))
+		tmpl = template.Must(tmpl.Parse(postHtmlBuffer.String()))
+		log.Print("templates", tmpl.DefinedTemplates())
+
+		var templatedBuffer bytes.Buffer
+		tmpl.Execute(&templatedBuffer, map[string]any{
+			"Post": post,
+		})
+		if err = os.WriteFile(post.htmlPath, templatedBuffer.Bytes(), 0644); err != nil {
+			logger.Warn(err.Error())
+			return nil
+		}
 
 		return nil
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// Generate new css file
+	cmd := exec.Command("tailwindcss", "-i", "tw.css", "-o", "static/main.css", "--minify")
+	if err = cmd.Run(); err != nil {
+		log.Fatalln("Tailwind failed", err)
+	}
+	if err = cmd.Wait(); err != nil {
+		log.Fatalln("Tailwind failed", err)
+	}
+
 	sortedPosts := []Post{}
 	for _, p := range posts {
 		sortedPosts = append(sortedPosts, p)
@@ -206,7 +264,6 @@ func main() {
 				return
 			}
 			defer output.Close()
-			log.Print("COUNT ", len(sortedPosts))
 			tmpl.Execute(output, map[string]any{
 				"Posts":    sortedPosts,
 				"FullPath": r.Host,
@@ -220,10 +277,7 @@ func main() {
 				w.Write([]byte("404"))
 				return
 			}
-			tmpl := template.Must(template.ParseFiles("templates/base.html", "templates/bottom-bar.html", "templates/posts/post-base.html", post.HTMLPath))
-			tmpl.Execute(w, map[string]any{
-				"Post": post,
-			})
+			http.ServeFile(w, r, post.htmlPath)
 		})
 	})
 
