@@ -6,28 +6,33 @@
 @layer base {
     header {
       @apply text-4xl;
-      @apply mt-4;
-      @apply mb-2;
+      @apply mt-10;
+      @apply mb-8;
+      @apply text-slate-400;
     }
     h1 {
       @apply text-3xl;
-      @apply mt-4;
-      @apply mb-2;
+      @apply mt-10;
+      @apply mb-8;
+      @apply text-slate-400;
     }
     h2 {
       @apply text-2xl;
-      @apply mt-3;
-      @apply mb-1;
+      @apply mt-8;
+      @apply mb-6;
+      @apply text-slate-400;
     }
     h3 {
       @apply text-xl;
-      @apply mt-3;
-      @apply mb-1;
+      @apply mt-6;
+      @apply mb-4;
+      @apply text-slate-400;
     }
     h4 {
       @apply text-lg;
-      @apply mt-2;
-      @apply mb-1;
+      @apply mt-4;
+      @apply mb-2;
+      @apply text-slate-400;
     }
     p {
       @apply my-1;
@@ -63,3 +68,4 @@
 body {
   @apply bg-slate-800;
 }
+
