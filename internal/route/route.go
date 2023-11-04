@@ -6,6 +6,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/go-chi/httplog"
 	"github.com/markbeep/htmx-blog/internal/config"
 )
 
@@ -14,6 +15,10 @@ func Index(w http.ResponseWriter, _ *http.Request) {
 	if err := tmpl.Execute(w, nil); err != nil {
 		config.Logger.Warn(err.Error())
 	}
+}
+
+func Health(w http.ResponseWriter, _ *http.Request) {
+	w.Write([]byte("200"))
 }
 
 func Favicon(w http.ResponseWriter, r *http.Request) {
@@ -76,4 +81,18 @@ func Error404(w http.ResponseWriter, r *http.Request) {
 	if err := tmpl.Execute(w, nil); err != nil {
 		config.Logger.Warn(err.Error())
 	}
+}
+
+func MiddlewareLogging(next http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == "/health" {
+			next.ServeHTTP(w, r)
+		} else {
+			logger := httplog.NewLogger("htmx-blog", httplog.Options{
+				LogLevel: "warn",
+			})
+			httplog.RequestLogger(logger)(next).ServeHTTP(w, r)
+		}
+	}
+	return http.HandlerFunc(fn)
 }

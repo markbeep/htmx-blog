@@ -9,8 +9,6 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/httplog/v2"
-	"github.com/markbeep/htmx-blog/internal/config"
 	"github.com/markbeep/htmx-blog/internal/route"
 	"github.com/markbeep/htmx-blog/internal/route/posts"
 )
@@ -34,10 +32,10 @@ func main() {
 	}
 
 	r := chi.NewRouter()
-
-	r.Use(httplog.RequestLogger(config.Logger))
+	r.Use(route.MiddlewareLogging)
 
 	r.Get("/", route.Index)
+	r.Get("/health", route.Health)
 	r.Get("/favicon.ico", route.Favicon)
 	r.Get("/static/*", route.Static)
 	r.Get("/about", route.About)

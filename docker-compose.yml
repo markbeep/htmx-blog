@@ -5,3 +5,19 @@ services:
     build: .
     ports:
       - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 1s
+      timeout: 1s
+      retries: 20
+
+  tests:
+    build:
+      context: .
+      dockerfile: testing/Dockerfile.playwright
+    entrypoint: ["npx", "playwright", "test"]
+    depends_on:
+      blog:
+        condition: service_healthy
+    ports:
+      - "9323:9323"

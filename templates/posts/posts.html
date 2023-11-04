@@ -12,14 +12,7 @@
     {{ range .Posts }} {{ if not .Draft }}
     <span
       >{{ .Date }} --
-      <a
-        href="{{ .Path }}"
-        hx-swap="innerHTML"
-        hx-get="{{ .Path }}"
-        class="underline"
-        hx-target="body"
-        hx-push-url="true"
-        preload="mouseover"
+      <a href="{{ .Path }}" class="underline" preload="mouseover"
         >{{ .Title }}</a
       ></span
     >

@@ -1,0 +1,17 @@
+{
+  "name": "htmx-blog",
+  "version": "1.0.0",
+  "description": "This is my [personal blog](https://blog.markc.su). It started out as a simple project to practice using [htmx](https://htmx.org/) to make it an extremely lightweight and efficient website and [tailwindcss](https://tailwindcss.com/) for the styling.",
+  "main": "tailwind.config.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.39.0",
+    "@types/node": "^20.8.10"
+  },
+  "dependencies": {
+    "playwright": "^1.39.0"
+  }
+}

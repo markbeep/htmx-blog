@@ -1,5 +1,5 @@
 ---
-title: "Nix -  The best package manager you should be using"
+title: "Nix - The best package manager you should be using"
 date: 2023-05-23T22:21:19+02:00
 showDate: true
 tags: ["nix", "nixos", "package manager"]

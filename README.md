@@ -1,5 +1,7 @@
 # Mark's Blog
 
+![Tests](https://github.com/markbeep/htmx-blog/actions/workflows/playwright.yml/badge.svg)
+
 This is my [personal blog](https://blog.markc.su). It started out as a simple project to practice using [htmx](https://htmx.org/) to make
 it an extremely lightweight and efficient website and [tailwindcss](https://tailwindcss.com/) for the styling.
 
@@ -43,5 +45,15 @@ It's also possible to start up the website using [Docker](https://www.docker.com
 docker compose up --build
 ```
 
-This will build and start up the website. If you're building for arm64, you'll need to modify the Dockerfile and swap out
+This will build and start up the website as well as run the playwright tests. If you're building for arm64, you'll need to modify the Dockerfile and swap out
 the tailwindcss CLI tool installation for the arm64 version.
+
+## Testing
+
+For extensive testing, [Playwright](https://playwright.dev/) is used. To make the install simpler, there's a Dockerfile
+in `testing/Dockerfile.playwright`. Build and run it from the **root directory**.
+
+```bash
+docker build -t htmx-playwright -f testing/Dockerfile.playwright .
+docker run --rm -it --network host htmx-playwright /bin/bash
+```
