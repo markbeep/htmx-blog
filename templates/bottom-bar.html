@@ -10,7 +10,7 @@
       hx-get="/"
       hx-target="body"
       hx-push-url="true"
-      preload
+      preload="mouseover"
       >home</a
     >
     {{- if ne .Path "posts" -}}
@@ -20,7 +20,7 @@
       hx-get="/posts"
       hx-target="body"
       hx-push-url="true"
-      preload
+      preload="mouseover"
       >posts</a
     >
     {{- end -}} {{- if ne .Path "polyring" -}}
@@ -30,7 +30,7 @@
       hx-get="/polyring"
       hx-target="body"
       hx-push-url="true"
-      preload
+      preload="mouseover"
       >polyring</a
     >
     {{- end -}} {{- if ne .Path "about" -}}
@@ -40,7 +40,7 @@
       hx-get="/about"
       hx-target="body"
       hx-push-url="true"
-      preload
+      preload="mouseover"
       >who is mark?</a
     >
     {{- end -}}
