@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"html/template"
 	"io/fs"
 	"log"
@@ -81,7 +82,7 @@ func (p *PostsHandler) Posts(r chi.Router) {
 	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
 		post, ok := p.posts[r.URL.Path]
 		if !ok {
-			config.Logger.Warn("Unknown posts path")
+			config.Logger.Warn(fmt.Sprintf("Unknown posts path: %s", r.URL.Path))
 			route.Error404(w, r)
 			return
 		}

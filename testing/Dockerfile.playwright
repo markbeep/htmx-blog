@@ -6,3 +6,4 @@ RUN npx playwright install-deps
 
 COPY playwright.config.ts .
 COPY testing/tests testing/tests
+COPY content content
