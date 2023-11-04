@@ -17,9 +17,12 @@ var Markdown = goldmark.New(
 		highlighting.NewHighlighting(
 			highlighting.WithStyle("github-dark"),
 			highlighting.WithFormatOptions(
-				chromahtml.ClassPrefix("codeblock"),
 				chromahtml.WithCustomCSS(map[chroma.TokenType]string{
-					chroma.PreWrapper: "padding: 10px; margin: 20px 0 20px 0; border-radius: 10px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);",
+					chroma.PreWrapper: `padding: 10px;
+						margin: 20px 0 20px 0;
+						border-radius: 10px;
+						box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+						overflow: scroll;`,
 				}),
 			),
 		),

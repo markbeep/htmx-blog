@@ -68,3 +68,9 @@ body {
   @apply bg-slate-800;
 }
 
+code:not(pre > code) {
+  @apply bg-gray-950;
+  @apply py-0.5;
+  @apply px-1;
+  @apply rounded-md;
+}
