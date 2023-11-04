@@ -151,7 +151,7 @@ func getMarkdownMetadata(path string, data *[]byte) (*post, error) {
 	return &post, nil
 }
 
-func (ph *PostsHandler) GenerateHTML(inPath, outPath string) {
+func (ph *PostsHandler) GenerateHTML(inPath, outPath string, generateFiles bool) error {
 	ph.posts = map[string]post{}
 	ph.sortedPosts = []post{}
 
@@ -159,11 +159,11 @@ func (ph *PostsHandler) GenerateHTML(inPath, outPath string) {
 	outPath = strings.Trim(outPath, "/")
 
 	// Search all markdown files
-	err := filepath.Walk(inPath+"/posts", func(path string, info fs.FileInfo, err error) error {
-		// Makes sure all directories exist
+	err := filepath.Walk(inPath, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
+		// Makes sure all directories exist
 		if info.IsDir() {
 			path, err := url.JoinPath(outPath, path)
 			if err != nil {
@@ -192,6 +192,11 @@ func (ph *PostsHandler) GenerateHTML(inPath, outPath string) {
 			return err
 		}
 		ph.posts[post.Path] = *post
+
+		if !generateFiles {
+			return nil
+		}
+
 		log.Printf("Generated post: %s", post.Path)
 
 		// Turn converted file into a template
@@ -219,8 +224,10 @@ func (ph *PostsHandler) GenerateHTML(inPath, outPath string) {
 		return nil
 	})
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	ph.sortPosts()
+
+	return nil
 }

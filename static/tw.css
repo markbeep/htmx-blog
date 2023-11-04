@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap");
 
 @layer base {
     header {
@@ -52,6 +51,7 @@
     }
     a {
       @apply underline;
+      @apply underline-offset-2;
       @apply dark:text-slate-400;
       @apply hover:dark:text-slate-500;
       @apply hover:text-slate-500;
@@ -62,15 +62,30 @@
       @apply mx-auto;
       @apply my-4;
     }
+
+    @font-face {
+      font-family: "Gothic";
+      src: url("/static/DidactGothic-Regular.ttf");
+    }
+}
+
+* {
+  @apply font-gothic;
 }
 
 body {
   @apply bg-slate-800;
 }
 
+code, code span {
+  @apply font-mono;
+}
+
+/* Inline code */
 code:not(pre > code) {
   @apply bg-gray-950;
   @apply py-0.5;
   @apply px-1;
   @apply rounded-md;
+  @apply border-slate-400 border;
 }

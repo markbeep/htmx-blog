@@ -1,15 +1,47 @@
-Install `go1.21` and `go install github.com/cosmtrek/air@latest`
+# Mark's Blog
 
-Then start the project by running `air` which enables hot reload
+This is my [personal blog](https://blog.markc.su). It started out as a simple project to practice using [htmx](https://htmx.org/) to make
+it an extremely lightweight and efficient website and [tailwindcss](https://tailwindcss.com/) for the styling.
 
-Or run `go run .` like a normie.
+One important requirement was that all my blog posts were to be written in markdown (in `/content`). It then turned out to be
+a bigger challenge to get the markdown file generation working than actually creating the blog. I first started out using [pandoc](https://pandoc.org/)
+to generate the markdown externally, but pandoc does some very weird styling and the syntax highlighting colors they support look
+really bad. I instead then opted for [goldmark](https://github.com/yuin/goldmark) which is also in use by the [hugo](https://gohugo.io/).
 
-## Best development setup
+## Installation
 
-With `air`, you can simply run `air` in the root directory to have hot-reload enabled.
+To get the blog running locally, you only really need one thing: `go 1.21`. With that you can already start running the `main.go`
+file:
 
-Additionally get `tailwindcss` and run `tailwindcss -i static/tw.css -o static/main.css --watch` for it to automatically build the new `main.css` file.
+```bash
+go run .
+```
 
-## TODOs
+### Hot Reload
 
-- [ ] Add tags
+For the best developer experience I recommend getting [air](https://github.com/cosmtrek/air) which enables hot-reloading on save. Install air and run it:
+
+```bash
+go install github.com/cosmtrek/air@latest
+air
+```
+
+### Styling
+
+If you're working on the css or styling, it is recommended to also get the [tailwindcss CLI](https://tailwindcss.com/blog/standalone-cli) tool and run it on the side to keep on updating
+the `main.css` stylesheet:
+
+```bash
+tailwindcss -i static/tw.css -o static/main.css --watch
+```
+
+### Docker
+
+It's also possible to start up the website using [Docker](https://www.docker.com/):
+
+```bash
+docker compose up --build
+```
+
+This will build and start up the website. If you're building for arm64, you'll need to modify the Dockerfile and swap out
+the tailwindcss CLI tool installation for the arm64 version.

@@ -5,12 +5,12 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                "gothic": ["Didact Gothic", "sans serif"]
+                "gothic": ["Gothic", "sans-serif"]
             },
             dark: {
                 "bg-primary": "bg-cyan-950",
                 "text-primary": "text-white",
-            }
+            },
         },
     },
     plugins: [],

@@ -4,6 +4,7 @@ WORKDIR /app
 # Download tailwindcss
 RUN apk add --no-cache curl
 RUN curl -o /bin/tailwindcss -sL https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.5/tailwindcss-linux-x64
+# RUN curl -o /bin/tailwindcss -sL https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.5/tailwindcss-linux-arm64
 RUN chmod +x /bin/tailwindcss
 
 COPY tailwind.config.js .
@@ -16,5 +17,8 @@ RUN go build
 COPY static static
 COPY content content
 COPY templates templates
+
+RUN ./htmx-blog --generate --only-generate
+RUN tailwindcss -i static/tw.css -o static/main.css --minify
 
 CMD ./htmx-blog

@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"os/exec"
 
 	"log"
 	"net/http"
@@ -17,7 +16,9 @@ import (
 )
 
 var (
-	port = flag.String("port", os.Getenv("PORT"), "port to host the website at")
+	port         = flag.String("port", os.Getenv("PORT"), "port to host the website at")
+	generate     = flag.Bool("generate", false, "if the html files should be generated")
+	onlyGenerate = flag.Bool("only-generate", false, "if the program should end after generating files")
 )
 
 func main() {
@@ -26,20 +27,15 @@ func main() {
 		*port = "3000"
 	}
 
+	postsHander := posts.PostsHandler{}
+	postsHander.GenerateHTML("content", "generated", *generate)
+	if *onlyGenerate {
+		return
+	}
+
 	r := chi.NewRouter()
 
 	r.Use(httplog.RequestLogger(config.Logger))
-
-	postsHander := posts.PostsHandler{}
-	postsHander.GenerateHTML("content", "generated")
-
-	// Generate css file
-	cmd := exec.Command("tailwindcss", "-i", "static/tw.css", "-o", "static/main.css", "--minify")
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		log.Fatalln("Tailwind failed", string(output), err)
-	}
-	log.Print("generated tailwind css files")
 
 	r.Get("/", route.Index)
 	r.Get("/favicon.ico", route.Favicon)
