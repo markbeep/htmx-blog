@@ -1,4 +1,7 @@
-{{ define "content" }}
+{{ define "head" }}
+<title>All Posts</title>
+<meta name="description" content="All posts on Mark's blog" />
+{{ end }} {{ define "content" }}
 
 <div
   class="flex h-100% w-screen items-center flex-col dark:bg-slate-800 dark:text-slate-50"
@@ -9,7 +12,16 @@
     {{ range .Posts }} {{ if not .Draft }}
     <span
       >{{ .Date }} --
-      <a href="{{ .Path }}" class="underline" preload>{{ .Title }}</a></span
+      <a
+        href="{{ .Path }}"
+        hx-swap="innerHTML"
+        hx-get="{{ .Path }}"
+        class="underline"
+        hx-target="body"
+        hx-push-url="true"
+        preload
+        >{{ .Title }}</a
+      ></span
     >
     {{ end }} {{ end }}
   </main>

@@ -50,10 +50,9 @@
       @apply ml-4;
       @apply my-2;
     }
-    * {
-      @apply font-gothic;
-    }
     a {
+      @apply underline;
+      @apply dark:text-slate-400;
       @apply hover:dark:text-slate-500;
       @apply hover:text-slate-500;
       @apply transition;

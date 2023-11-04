@@ -17,6 +17,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/markbeep/htmx-blog/internal/config"
+	"github.com/markbeep/htmx-blog/internal/route"
 )
 
 type post struct {
@@ -81,7 +82,7 @@ func (p *PostsHandler) Posts(r chi.Router) {
 		post, ok := p.posts[r.URL.Path]
 		if !ok {
 			config.Logger.Warn("Unknown posts path")
-			w.Write([]byte("404"))
+			route.Error404(w, r)
 			return
 		}
 		http.ServeFile(w, r, post.HtmlPath)

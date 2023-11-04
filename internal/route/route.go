@@ -70,3 +70,10 @@ func Content(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, path)
 
 }
+
+func Error404(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("templates/base.html", "templates/bottom-bar.html", "templates/404.html"))
+	if err := tmpl.Execute(w, nil); err != nil {
+		config.Logger.Warn(err.Error())
+	}
+}

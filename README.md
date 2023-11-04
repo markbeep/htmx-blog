@@ -12,15 +12,4 @@ Additionally get `tailwindcss` and run `tailwindcss -i static/tw.css -o static/m
 
 ## TODOs
 
-- [ ] Get the website colors adjusted
-- [ ] Make the code block colors nicer
 - [ ] Add tags
-- [ ] Add proper 404 page
-
-## Generate files without docker
-
-```bash
-mkdir -p generated && find content -type d -exec mkdir -p -- generated/{} \;
-find content -iname "*.md" -type f -exec sh -c 'pandoc "${0}" -s --template templates/pandoc.html --css static/pandoc.css --highlight-style breezedark -o "./generated/${0%.md}.html"' {} \;
-find generated -iname "*.html" -type f -exec sh -c 'sed -i "s/math inline/math inline-block/g" ${0}' {} \;
-```

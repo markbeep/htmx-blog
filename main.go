@@ -47,7 +47,7 @@ func main() {
 	r.Get("/about", route.About)
 	r.Get("/polyring", route.Polyring)
 	r.Get("/content/*", route.Content)
-
+	r.Get("/*", route.Error404)
 	r.Route("/posts", postsHander.Posts)
 
 	host := fmt.Sprintf(":%s", *port)

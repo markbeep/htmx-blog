@@ -5,7 +5,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                "gothic": ["Didact Gothic", "sans-serif"]
+                "gothic": ["Didact Gothic", "sans serif"]
             },
             dark: {
                 "bg-primary": "bg-cyan-950",
