@@ -1,4 +1,4 @@
-name: Build
+name: Build and Deploy Dockerfile
 
 on:
   workflow_run:

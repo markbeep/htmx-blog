@@ -1,6 +1,8 @@
 # Mark's Blog
 
-![Tests](https://github.com/markbeep/htmx-blog/actions/workflows/playwright.yml/badge.svg)
+![Playwright Tests](https://img.shields.io/github/actions/workflow/status/markbeep/htmx-blog/playwright.yml?logo=playwright&logoColor=%23FFFFFF&label=Playwright%20Tests&link=https%3A%2F%2Fgithub.com%2Fmarkbeep%2Fhtmx-blog%2Factions)
+![Deploy Dockerfile](https://img.shields.io/github/actions/workflow/status/markbeep/htmx-blog/build.yml?logo=kubernetes&logoColor=%23FFFFFF&label=Deploy&link=https%3A%2F%2Fgithub.com%2Fmarkbeep%2Fhtmx-blog%2Factions)
+![Go version](https://img.shields.io/github/go-mod/go-version/markbeep/htmx-blog?logo=go)
 
 This is my [personal blog](https://markc.su). It started out as a simple project to practice using [htmx](https://htmx.org/) to make
 it an extremely lightweight and efficient website and [tailwindcss](https://tailwindcss.com/) for the styling.
