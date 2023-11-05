@@ -2,12 +2,12 @@
 <channel>
 
 <title>Posts on Mark's Posts</title>
-<link>https://{{ .FullPath }}</link>
+<link>https://{{ .FullPath }}/posts/</link>
 <description>Recent content in Posts on Mark's Blog</description>
 <generator>Mark's Cool Site</generator>
 <language>en-us</language>
 <lastBuildDate>Wed, 13 Sep 2023 22:58:05 +0200</lastBuildDate>
-<atom:link href="https://{{ .FullPath }}/index.xml" rel="self" type="application/rss+xml"/>
+<atom:link href="https://{{ .FullPath }}/posts/index.xml" rel="self" type="application/rss+xml"/>
 
 {{ range .Posts }} {{ if not .Draft }}
 

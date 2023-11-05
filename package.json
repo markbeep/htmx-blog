@@ -1,7 +1,7 @@
 {
   "name": "htmx-blog",
   "version": "1.0.0",
-  "description": "This is my [personal blog](https://blog.markc.su). It started out as a simple project to practice using [htmx](https://htmx.org/) to make it an extremely lightweight and efficient website and [tailwindcss](https://tailwindcss.com/) for the styling.",
+  "description": "This is my [personal blog](https://markc.su). It started out as a simple project to practice using [htmx](https://htmx.org/) to make it an extremely lightweight and efficient website and [tailwindcss](https://tailwindcss.com/) for the styling.",
   "main": "tailwind.config.js",
   "scripts": {},
   "keywords": [],

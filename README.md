@@ -2,7 +2,7 @@
 
 ![Tests](https://github.com/markbeep/htmx-blog/actions/workflows/playwright.yml/badge.svg)
 
-This is my [personal blog](https://blog.markc.su). It started out as a simple project to practice using [htmx](https://htmx.org/) to make
+This is my [personal blog](https://markc.su). It started out as a simple project to practice using [htmx](https://htmx.org/) to make
 it an extremely lightweight and efficient website and [tailwindcss](https://tailwindcss.com/) for the styling.
 
 One important requirement was that all my blog posts were to be written in markdown (in `/content`). It then turned out to be
