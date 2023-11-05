@@ -8,6 +8,7 @@ import (
 	"github.com/go-chi/httplog/v2"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
+	"github.com/yuin/goldmark/parser"
 )
 
 var ImageFormats = []string{"jpg", "jpeg", "gif", "png", "gif"}
@@ -26,6 +27,9 @@ var Markdown = goldmark.New(
 				}),
 			),
 		),
+	),
+	goldmark.WithParserOptions(
+		parser.WithAutoHeadingID(),
 	),
 )
 
