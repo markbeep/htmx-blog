@@ -1,22 +1,23 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
+	"io"
 	"os"
 
 	"log"
 	"net/http"
 
+	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
+	"github.com/markbeep/htmx-blog/components"
 	"github.com/markbeep/htmx-blog/internal/route"
-	"github.com/markbeep/htmx-blog/internal/route/posts"
 )
 
 var (
-	port         = flag.String("port", os.Getenv("PORT"), "port to host the website at")
-	generate     = flag.Bool("generate", false, "if the html files should be generated")
-	onlyGenerate = flag.Bool("only-generate", false, "if the program should end after generating files")
+	port = flag.String("port", os.Getenv("PORT"), "port to host the website at")
 )
 
 func main() {
@@ -25,24 +26,34 @@ func main() {
 		*port = "3000"
 	}
 
-	postsHander := posts.PostsHandler{}
-	postsHander.GenerateHTML("content", "generated", *generate)
-	if *onlyGenerate {
-		return
-	}
+	postsHander := route.PostsHandler{}
+	postsHander.ConvertMarkdown("content")
 
 	r := chi.NewRouter()
 	r.Use(route.MiddlewareLogging)
 
-	r.Get("/", route.Index)
-	r.Get("/health", route.Health)
+	r.Get("/", templ.Handler(components.Index()).ServeHTTP)
+	r.Get("/health", templ.Handler(components.Health()).ServeHTTP)
+	r.Get("/about", templ.Handler(components.About()).ServeHTTP)
+	r.Get("/polyring", templ.Handler(components.Polyring()).ServeHTTP)
+	r.Get("/*", templ.Handler(components.Error404()).ServeHTTP)
+
 	r.Get("/favicon.ico", route.Favicon)
 	r.Get("/static/*", route.Static)
-	r.Get("/about", route.About)
-	r.Get("/polyring", route.Polyring)
 	r.Get("/content/*", route.Content)
-	r.Get("/*", route.Error404)
-	r.Route("/posts", postsHander.Posts)
+	r.Get("/posts/index.xml", route.XML(postsHander.GetPosts()))
+
+	r.Get("/posts", templ.Handler(components.Posts(postsHander.GetPosts())).ServeHTTP)
+
+	// Add all of the posts
+	for _, p := range postsHander.GetPosts() {
+		post := *p
+		t := templ.ComponentFunc(func(_ context.Context, w io.Writer) (err error) {
+			_, err = w.Write(post.Buffer)
+			return
+		})
+		r.Get(post.Path, templ.Handler(components.Post(post, t)).ServeHTTP)
+	}
 
 	host := fmt.Sprintf(":%s", *port)
 	log.Printf("listening on %s", host)

@@ -14,10 +14,18 @@ really bad. I instead then opted for [goldmark](https://github.com/yuin/goldmark
 
 ## Installation
 
-To get the blog running locally, you only really need one thing: `go 1.21`. With that you can already start running the `main.go`
-file:
+To get the blog running locally you first need `go 1.21`. You'll also need [templ](https://templ.guide/quick-start/installation) which has three quick ways to install:
 
 ```bash
+go install github.com/a-h/templ/cmd/templ@latest # install via go
+curl -o https://github.com/a-h/templ/releases/download/v0.2.432/templ_Linux_x86_64.tar.gz && chmod +x templ # install binary
+nix run github:a-h/templ # run using nix
+```
+
+Once templ and go is set, you can generate the template go files and then start the server:
+
+```bash
+templ generate
 go run .
 ```
 
@@ -53,9 +61,9 @@ the tailwindcss CLI tool installation for the arm64 version.
 ## Testing
 
 For extensive testing, [Playwright](https://playwright.dev/) is used. To make the install simpler, there's a Dockerfile
-in `testing/Dockerfile.playwright`. Build and run it from the **root directory**.
+in `e2e/Dockerfile.playwright`. Build and run it from the **root directory**.
 
 ```bash
-docker build -t htmx-playwright -f testing/Dockerfile.playwright .
+docker build -t htmx-playwright -f e2e/Dockerfile.playwright .
 docker run --rm -it --network host htmx-playwright /bin/bash
 ```

@@ -1,0 +1,77 @@
+package components
+
+templ Base(title, description string) {
+    <!DOCTYPE html/>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/static/main.css" />
+        <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+        <script src="https://unpkg.com/htmx.org/dist/ext/preload.js"></script>
+        <script
+        defer
+        data-domain="markc.su"
+        src="https://plausible.markc.su/js/script.js"
+        ></script>
+        <title>{ title }</title>
+        <meta name="description" content={ description } />
+        <meta name="og:site_name" content={ title } />
+        <meta name="og:type" content="blog" />
+        <meta name="og:image" content="/static/tn.png" />
+        <meta name="og:twitter" content="/static/tn.png" />
+    </head>
+    <body class="dark" hx-ext="preload">
+        <!--[if lt IE 7]>
+        <p class="browsehappy">
+            You are using an <strong>outdated</strong> browser. Please
+            <a href="#">upgrade your browser</a> to improve your experience.
+        </p>
+        <![endif]-->
+        { children... }
+    </body>
+    </html>
+}
+
+type bottomBarLink struct {
+    name string
+    path string
+}
+
+var paths = []bottomBarLink{
+    {name: "home", path: "/"},
+    {name: "posts", path: "/posts"},
+    {name: "polyring", path: "/polyring"},
+    {name: "who is mark?", path: "/about"},
+}
+
+templ bottomBar(currentPath string) {
+    <div>
+    <hr class="border-t-1 border-gray-800 dark:border-slate-50 my-6 w-full" />
+    <div
+        class="flex flex-row flex-wrap justify-center space-x-2 text-lg underline underline-offset-2"
+        hx-boost="true"
+    >
+        for _, p := range paths {
+            if currentPath != p.path {
+                <a
+                    href={ templ.URL(p.path) }
+                    preload="mouseover"
+                >{ p.name }</a>
+            }
+        }
+        <a href="https://github.com/markbeep">github</a>
+    </div>
+    <div class="mt-2 text-base text-center">
+        <p>made with <a href="https://htmx.org" class="underline">htmx</a></p>
+        <p>
+        theme inspired by
+        <a
+            href="https://github.com/victoriadrake/hugo-theme-sam"
+            class="underline"
+            >Call me Sam</a>
+        </p>
+    </div>
+    </div>
+}

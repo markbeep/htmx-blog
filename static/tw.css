@@ -89,3 +89,7 @@ code:not(pre > code) {
   @apply rounded-md;
   @apply border-slate-400 border;
 }
+
+mjx-container {
+  display: inline-block;
+}

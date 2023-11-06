@@ -9,6 +9,7 @@ import (
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
 	"github.com/yuin/goldmark/parser"
+	"go.abhg.dev/goldmark/frontmatter"
 )
 
 var ImageFormats = []string{"jpg", "jpeg", "gif", "png", "gif"}
@@ -27,6 +28,7 @@ var Markdown = goldmark.New(
 				}),
 			),
 		),
+		&frontmatter.Extender{},
 	),
 	goldmark.WithParserOptions(
 		parser.WithAutoHeadingID(),

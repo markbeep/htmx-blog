@@ -2,7 +2,6 @@
 .envrc
 shell.nix
 tmp
-generated
 static/main.css
 node_modules
 /test-results/
@@ -17,3 +16,4 @@ node_modules
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+*_templ.go

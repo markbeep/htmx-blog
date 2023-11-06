@@ -18,12 +18,14 @@ jobs:
           go-version: "^1.21.3"
 
       # Build go app
+      - name: Install and generate templates
+        run: |
+          go install github.com/a-h/templ/cmd/templ@latest
+          templ generate components
       - name: Install pacakges
         run: go get
       - name: Build
         run: go build
-      - name: Generate html
-        run: ./htmx-blog --generate --only-generate
 
       # Set up playwright
       - name: Install dependencies

@@ -14,7 +14,7 @@ services:
   tests:
     build:
       context: .
-      dockerfile: testing/Dockerfile.playwright
+      dockerfile: e2e/Dockerfile.playwright
     entrypoint: ["npx", "playwright", "test"]
     depends_on:
       blog:
