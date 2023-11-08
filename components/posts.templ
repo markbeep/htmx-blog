@@ -3,25 +3,25 @@ package components
 import "github.com/markbeep/htmx-blog/internal/route"
 
 templ Posts(posts []*route.Post) {
-    @Base("All Posts", "A list of all the blog posts") {
-        <div
-        class="flex h-100% w-screen items-center flex-col dark:bg-slate-800 dark:text-slate-50"
-        >
-            <main
-                class="max-w-4xl flex flex-col space-y-2 flex-wrap mx-2"
-                hx-boost="true"
-            >
-                <header class="text-3xl mt-20 mb-10">Posts</header>
-
-                for _, p := range posts {
-                    if !p.Draft {
-                        <span>{ p.FormattedDate } --
-                        <a href={ templ.URL(p.Path) } class="underline" preload="mouseover">{ p.Title }</a></span>
-                    }
-                }
-            </main>
-
-            @bottomBar("/posts")
-        </div>
-    }
+	@Base("All Posts", "A list of all the blog posts") {
+		<div
+ 			class="flex h-100% w-screen items-center flex-col dark:bg-slate-800 dark:text-slate-50"
+		>
+			<main
+ 				class="max-w-4xl flex flex-col space-y-2 flex-wrap mx-2"
+ 				hx-boost="true"
+			>
+				<header class="text-3xl mt-20 mb-10">Posts</header>
+				for _, p := range posts {
+					if !p.Draft {
+						<span>
+							{ p.FormattedDate } --
+							<a href={ templ.URL(p.Path) } class="underline" preload="mouseover">{ p.Title }</a>
+						</span>
+					}
+				}
+			</main>
+			@bottomBar("/posts")
+		</div>
+	}
 }

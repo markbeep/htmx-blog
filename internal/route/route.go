@@ -56,7 +56,11 @@ func (ph *PostsHandler) GetPosts() []*Post {
 }
 
 func Favicon(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "static/m.ico")
+	http.ServeFile(w, r, "static/favicons/favicon.ico")
+}
+
+func Robots(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "static/robots.txt")
 }
 
 func Static(w http.ResponseWriter, r *http.Request) {

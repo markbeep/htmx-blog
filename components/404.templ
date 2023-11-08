@@ -1,18 +1,17 @@
 package components
 
 templ Error404() {
-    @Base("404", "Page not found") {
-        <div
-            class="w-screen h-screen flex flex-col justify-center items-center dark:bg-slate-800 dark:text-slate-50"
-            >
-            <h1 class="text-8xl underline">404</h1>
-            <p class="text-center">
-                The page you tried to access doesn't seem to exist.
-                <br />
-                If you believe this is an error please create an issue on the Github page.
-            </p>
-
-            @bottomBar("")
-        </div>
-    }
+	@Base("404", "Page not found") {
+		<div
+ 			class="w-screen h-screen flex flex-col justify-center items-center dark:bg-slate-800 dark:text-slate-50"
+		>
+			<h1 class="text-8xl underline">404</h1>
+			<p class="text-center">
+				The page you tried to access doesn't seem to exist.
+				<br/>
+				If you believe this is an error please create an issue on the Github page.
+			</p>
+			@bottomBar("")
+		</div>
+	}
 }

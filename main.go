@@ -41,6 +41,7 @@ func main() {
 	r.Get("/favicon.ico", route.Favicon)
 	r.Get("/static/*", route.Static)
 	r.Get("/content/*", route.Content)
+	r.Get("/robots.txt", route.Robots)
 	r.Get("/posts/index.xml", route.XML(postsHander.GetPosts()))
 
 	r.Get("/posts", templ.Handler(components.Posts(postsHander.GetPosts())).ServeHTTP)

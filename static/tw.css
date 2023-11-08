@@ -65,7 +65,10 @@
 
     @font-face {
       font-family: "Gothic";
-      src: url("/static/DidactGothic-Regular-subset.ttf");
+      src: local("Didact Gothic"), local("Didact-Gothic"),
+        url("/static/DidactGothic-Regular-subset.woff2"),
+        url("/static/DidactGothic-Regular-subset.ttf");
+      font-display: swap;
     }
 }
 
