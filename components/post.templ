@@ -4,8 +4,8 @@ import "github.com/markbeep/htmx-blog/internal/route"
 import "strconv"
 import "fmt"
 
-templ comments(comments []route.Comment) {
-	<div class="w-full flex flex-col align-middle justify-center">
+templ Comments(comments []route.Comment) {
+	<div id="comments" class="w-full flex flex-col align-middle justify-center">
 		<h3>{ strconv.Itoa(len(comments)) } comments</h3>
 		for _, c := range comments {
 			<div class="w-full bg-slate-700 my-1 p-2 rounded-lg">
@@ -20,11 +20,26 @@ templ comments(comments []route.Comment) {
 	</div>
 }
 
-templ addComment() {
-	<div>
-		<input type="input">Add a comment here</input>
-		Add comment here
-	</div>
+templ addComment(path string) {
+	<form
+		class="bg-slate-700 rounded-lg mt-4 p-2"
+		hx-post={ path }
+		hx-target="#comments"
+	>
+		<input
+			name="name"
+			type="text"
+			placeholder="Name"
+			class="bg-slate-500 w-full p-2"
+		/>
+		<textarea
+			name="content"
+			type="text"
+			placeholder="Add a comment here"
+			class="bg-slate-500 w-full p-2 mt-1"
+		/>
+		<button type="submit" class="w-fit bg-blue-500 p-1 rounded-lg mt-1">Add comment</button>
+	</form>
 }
 
 templ Post(post route.Post, content templ.Component) {
@@ -56,8 +71,8 @@ templ Post(post route.Post, content templ.Component) {
 					@content
 				</div>
 				@horizontalLine()
-				@comments(post.Comments)
-				@addComment()
+				@Comments(post.Comments)
+				@addComment(post.Path + "/comments")
 			</article>
 			<div class="w-full">
 				<script src="https://utteranc.es/client.js" repo="markbeep/markbeep.github.io" issue-term="pathname" label="comments" theme="dark-blue" crossorigin="anonymous" async></script>

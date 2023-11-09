@@ -38,8 +38,8 @@ type Post struct {
 }
 
 type Comment struct {
-	Name      string
-	Content   string
+	Name      string `json:"name"`
+	Content   string `json:"content"`
 	CreatedAt time.Time
 }
 
