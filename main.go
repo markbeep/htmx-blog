@@ -78,19 +78,23 @@ func main() {
 			return
 		})
 		post.Comments = comments
-		r.Get(post.Path, templ.Handler(components.Post(post, t)).ServeHTTP)
+		r.Get(post.Path, func(w http.ResponseWriter, r *http.Request) {
+			post.Comments = comments
+			templ.Handler(components.Post(post, t)).ServeHTTP(w, r)
+		})
 		r.Post(post.Path+"/comments", func(w http.ResponseWriter, r *http.Request) {
 			r.ParseForm()
 			comment := route.Comment{CreatedAt: time.Now()}
 			comment.Name = strings.TrimSpace(r.PostFormValue("name"))
 			comment.Content = strings.TrimSpace(r.PostFormValue("content"))
+			errMsg := ""
 			if comment.Name == "" || comment.Content == "" {
-				// TODO: return comments with error
-				log.Fatal("Empty name. Unimplemented")
+				errMsg = "Name and content cannot be empty"
+			} else {
+				comments = append(comments, comment)
+				post.Comments = comments
 			}
-			comments = append(comments, comment)
-			post.Comments = comments
-			templ.Handler(components.Comments(post.Comments)).ServeHTTP(w, r)
+			templ.Handler(components.CommentSection(post, errMsg)).ServeHTTP(w, r)
 		})
 	}
 

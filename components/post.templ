@@ -4,11 +4,11 @@ import "github.com/markbeep/htmx-blog/internal/route"
 import "strconv"
 import "fmt"
 
-templ Comments(comments []route.Comment) {
-	<div id="comments" class="w-full flex flex-col align-middle justify-center">
+templ comments(comments []route.Comment) {
+	<div class="w-full flex flex-col align-middle justify-center">
 		<h3>{ strconv.Itoa(len(comments)) } comments</h3>
 		for _, c := range comments {
-			<div class="w-full bg-slate-700 my-1 p-2 rounded-lg">
+			<div class="w-full bg-slate-700 my-1 p-2 rounded-md">
 				<div class="flex flex-row justify-start items-center">
 					<img class="m-0 mr-4" src={ fmt.Sprintf("https://source.boringavatars.com/beam/40/%s", c.Name) }/>
 					<p>{ c.Name }<br/><i>Commented on { c.CreatedAt.Format("Mon Jan 02, 2006") }</i></p>
@@ -22,24 +22,43 @@ templ Comments(comments []route.Comment) {
 
 templ addComment(path string) {
 	<form
-		class="bg-slate-700 rounded-lg mt-4 p-2"
+		class="bg-slate-700 rounded-md mt-4 p-2 flex flex-col align-middle"
 		hx-post={ path }
 		hx-target="#comments"
+		hx-swap="outerHTML"
 	>
+		<p class="mb-0">Name</p>
 		<input
+			required
 			name="name"
 			type="text"
 			placeholder="Name"
-			class="bg-slate-500 w-full p-2"
+			class="bg-slate-600 w-full p-2"
 		/>
+		<p class="mb-0 mt-2">Comment</p>
 		<textarea
+			required
 			name="content"
 			type="text"
 			placeholder="Add a comment here"
-			class="bg-slate-500 w-full p-2 mt-1"
+			class="bg-slate-600 w-full h-32 p-2"
 		/>
-		<button type="submit" class="w-fit bg-blue-500 p-1 rounded-lg mt-1">Add comment</button>
+		<button type="submit" class="w-fit bg-blue-500 p-1 px-4 self-end rounded-md mt-2">Add comment</button>
+
+		<div id="comment-error"/>
 	</form>
+}
+
+templ CommentSection(post route.Post, errMsg string) {
+	<div id="comments">
+		@comments(post.Comments)
+		@addComment(post.Path + "/comments")
+		if len(errMsg) != 0 {
+			<div id="comment-error" class="w-full p-3 mt-2 rounded-md bg-red-800">
+				<p>ERROR: { errMsg }</p>
+			</div>
+		}
+	</div>
 }
 
 templ Post(post route.Post, content templ.Component) {
@@ -71,8 +90,7 @@ templ Post(post route.Post, content templ.Component) {
 					@content
 				</div>
 				@horizontalLine()
-				@Comments(post.Comments)
-				@addComment(post.Path + "/comments")
+				@CommentSection(post, "")
 			</article>
 			<div class="w-full">
 				<script src="https://utteranc.es/client.js" repo="markbeep/markbeep.github.io" issue-term="pathname" label="comments" theme="dark-blue" crossorigin="anonymous" async></script>
