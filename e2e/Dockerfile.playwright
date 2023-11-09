@@ -3,6 +3,7 @@ WORKDIR /app
 RUN npm install playwright@^1.39.0 @playwright/test@^1.39.0
 RUN npx playwright install
 RUN npx playwright install-deps
+RUN mkdir -p /app/test-results
 
 COPY playwright.config.ts .
 COPY e2e/tests e2e/tests
