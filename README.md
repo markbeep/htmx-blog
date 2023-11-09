@@ -67,3 +67,16 @@ in `e2e/Dockerfile.playwright`. Build and run it from the **root directory**.
 docker build -t htmx-playwright -f e2e/Dockerfile.playwright .
 docker run --rm -it --network host htmx-playwright /bin/bash
 ```
+
+## Nix
+
+With the `flake.nix` and `flake.lock` files you can set up local development with the exact same dependency versions.
+
+```bash
+nix develop # downloads all required dependencies
+nix build .#htmx-blog # build the blog
+nix run .#htmx-blog # build and run the blog locally
+nix run .#tailwindcss -- -i static/tw.css -o static/main.css --watch
+```
+
+**Note:** Tailwindcss still needs to be executed manually on the side to generate the `static/main.css` file
