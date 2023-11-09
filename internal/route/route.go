@@ -34,6 +34,13 @@ type Post struct {
 	Description   string
 	Buffer        []byte
 	HtmlPath      string
+	Comments      []Comment
+}
+
+type Comment struct {
+	Name      string
+	Content   string
+	CreatedAt time.Time
 }
 
 type PostsHandler struct {

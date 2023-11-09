@@ -3,6 +3,24 @@ package components
 import "github.com/markbeep/htmx-blog/internal/route"
 import "strconv"
 
+templ comments(comments []route.Comment) {
+	<div class="w-full flex flex-col align-middle justify-center">
+		<h3>{ strconv.Itoa(len(comments)) } comments</h3>
+		for _, c := range comments {
+			<div class="w-full bg-slate-700 my-1 p-2 rounded-lg">
+				<p>{ c.Name } · { c.CreatedAt.String() }</p>
+				{ c.Content }
+			</div>
+		}
+	</div>
+}
+
+templ addComment() {
+	<div>
+		Add comment here
+	</div>
+}
+
 templ Post(post route.Post, content templ.Component) {
 	@Base(post.Title, "") {
 		<div
@@ -28,9 +46,12 @@ templ Post(post route.Post, content templ.Component) {
                     </script>
 					<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 				}
-				<div class="w-full">
+				<div class="w-full mb-6">
 					@content
 				</div>
+				@horizontalLine()
+				@comments(post.Comments)
+				@addComment()
 			</article>
 			<div class="w-full">
 				<script src="https://utteranc.es/client.js" repo="markbeep/markbeep.github.io" issue-term="pathname" label="comments" theme="dark-blue" crossorigin="anonymous" async></script>

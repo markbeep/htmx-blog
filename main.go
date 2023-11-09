@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"time"
 
 	"log"
 	"net/http"
@@ -53,6 +54,28 @@ func main() {
 			_, err = w.Write(post.Buffer)
 			return
 		})
+		post.Comments = []route.Comment{
+			{
+				Name:      "Alice Johnson",
+				Content:   "This article really opened my eyes to new perspectives. Thanks for sharing!",
+				CreatedAt: time.Date(2023, 3, 12, 8, 34, 0, 0, time.UTC),
+			},
+			{
+				Name:      "Marcus Reed",
+				Content:   "I disagree with the points made about renewable energy. I think there's more to consider.",
+				CreatedAt: time.Date(2022, 11, 5, 14, 22, 0, 0, time.UTC),
+			},
+			{
+				Name:      "Jasmine Yu",
+				Content:   "Great tutorial! Followed it step by step and got my app running.",
+				CreatedAt: time.Date(2023, 5, 20, 19, 47, 0, 0, time.UTC),
+			},
+			{
+				Name:      "Erik Smith",
+				Content:   "Could you elaborate on the statistics from the last section? They don't seem to add up.",
+				CreatedAt: time.Date(2021, 8, 30, 22, 15, 0, 0, time.UTC),
+			},
+		}
 		r.Get(post.Path, templ.Handler(components.Post(post, t)).ServeHTTP)
 	}
 

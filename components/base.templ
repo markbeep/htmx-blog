@@ -34,6 +34,10 @@ templ Base(title, description string) {
 	</html>
 }
 
+templ horizontalLine() {
+	<hr class="border-t-1 border-gray-800 dark:border-slate-50 my-6 w-full"/>
+}
+
 type bottomBarLink struct {
 	name string
 	path string
@@ -48,7 +52,7 @@ var paths = []bottomBarLink{
 
 templ bottomBar(currentPath string) {
 	<div>
-		<hr class="border-t-1 border-gray-800 dark:border-slate-50 my-6 w-full"/>
+		@horizontalLine()
 		<div
  			class="flex flex-row flex-wrap justify-center space-x-2 text-lg underline underline-offset-2"
  			hx-boost="true"
