@@ -58,10 +58,6 @@
       @apply transition;
       @apply duration-300;
     }
-    img {
-      @apply mx-auto;
-      @apply my-4;
-    }
 
     @font-face {
       font-family: "Gothic";
@@ -95,4 +91,9 @@ code:not(pre > code) {
 
 mjx-container {
   display: inline-block;
+}
+
+img {
+  @apply mx-auto;
+  @apply my-4;
 }

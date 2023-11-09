@@ -38,6 +38,7 @@
               playwright-test
               k6
               templ-pkg
+              air
           ];
         };
       }

@@ -2,14 +2,19 @@ package components
 
 import "github.com/markbeep/htmx-blog/internal/route"
 import "strconv"
+import "fmt"
 
 templ comments(comments []route.Comment) {
 	<div class="w-full flex flex-col align-middle justify-center">
 		<h3>{ strconv.Itoa(len(comments)) } comments</h3>
 		for _, c := range comments {
 			<div class="w-full bg-slate-700 my-1 p-2 rounded-lg">
-				<p>{ c.Name } · { c.CreatedAt.String() }</p>
-				{ c.Content }
+				<div class="flex flex-row justify-start items-center">
+					<img class="m-0 mr-4" src={ fmt.Sprintf("https://source.boringavatars.com/beam/40/%s", c.Name) }/>
+					<p>{ c.Name }<br/><i>Commented on { c.CreatedAt.Format("Mon Jan 02, 2006") }</i></p>
+				</div>
+				<hr class="border-t-1 dark:border-slate-500 w-full my-0"/>
+				<p class="mt-2">{ c.Content }</p>
 			</div>
 		}
 	</div>
@@ -17,6 +22,7 @@ templ comments(comments []route.Comment) {
 
 templ addComment() {
 	<div>
+		<input type="input">Add a comment here</input>
 		Add comment here
 	</div>
 }
