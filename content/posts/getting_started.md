@@ -6,6 +6,10 @@ mathjax: true
 tags: ["web", "blog"]
 ---
 
+> _EDIT 21.11.2023: This blog isn't set up using hugo nor hosted on Github pages anymore.
+> I've learned a lot in terms of web development since this post. I've remade the full
+> blog using Go templating and htmx._
+
 # Welcome
 
 Welcome to the grand opening of my new website. This is the very first post on here.
