@@ -80,3 +80,11 @@ nix run .#tailwindcss -- -i static/tw.css -o static/main.css --watch
 ```
 
 **Note:** Tailwindcss still needs to be executed manually on the side to generate the `static/main.css` file
+
+# Creating Posts
+
+Posts can be created by executing the `post.sh` script. Simply execute the following:
+
+```sh
+./post.sh content/posts/name-of-post
+```

@@ -7,6 +7,7 @@ const posts: { name: string; href: string }[] = [];
 for (const f of files) {
   if (path.extname(f) !== ".md") continue;
   const file = readFileSync("content/posts/" + f, "utf-8");
+  if (file.includes("draft: true")) continue;
   const name = file.split("\n")[1].replace("title: ", "").replace(/"/g, "");
   const href = "/posts/" + f.replace(".md", "").replace(/"/g, "");
   posts.push({ name, href });
