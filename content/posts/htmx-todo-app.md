@@ -20,7 +20,7 @@ What we'll be building:
 
 ## Base project layout
 
-The project source code is available on [GitHub](https://github.com/markbeep/htmx-todo-workshop). It is intended to be followed along starting with the `template` branch. The `final` branch has the full code of how it will look in the end. If you've ever lost when following along, you can check out the `final` branch to see how it should look.
+The project source code is available on [GitHub](https://github.com/markbeep/htmx-todo-workshop). It is intended to be followed along starting with the `template` branch. The `final` branch has the full code of how it will look in the end. If you're ever lost when following along, you can check out the `final` branch to see how it should look when complete.
 
 > Sidenote: Styling seemed to be broken on Safari when I last tried it. It works on other browsers though.
 

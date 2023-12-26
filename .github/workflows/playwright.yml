@@ -20,7 +20,7 @@ jobs:
       # Build go app
       - name: Install and generate templates
         run: |
-          go install github.com/a-h/templ/cmd/templ@latest
+          go install github.com/a-h/templ/cmd/templ@v0.2.501
           templ generate components
       - name: Install pacakges
         run: go get
