@@ -20,7 +20,7 @@
           htmx-blog = pkgs.buildGo121Module {
             name = "htmx-blog";
             src = gitignore.lib.gitignoreSource ./.;
-            vendorSha256 = "sha256-MpBSY9I18hSw37E5ipfBEg6ZmIDyU70qV9zRB1LmK1E=";
+            vendorHash = "sha256-MpBSY9I18hSw37E5ipfBEg6ZmIDyU70qV9zRB1LmK1E=";
 
             preBuild = ''
               ${templ-pkg}/bin/templ generate

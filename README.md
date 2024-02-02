@@ -86,5 +86,5 @@ nix run .#tailwindcss -- -i static/tw.css -o static/main.css --watch
 Posts can be created by executing the `post.sh` script. Simply execute the following:
 
 ```sh
-./post.sh content/posts/name-of-post
+./post.sh content/posts/name_of_post
 ```

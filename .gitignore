@@ -1,11 +1,8 @@
-*
-!*.*
-!*/*
-
 .direnv
 .envrc
 shell.nix
 tmp
+htmx-blog
 static/main.css
 node_modules
 /test-results/
