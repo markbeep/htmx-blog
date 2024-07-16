@@ -3,7 +3,7 @@ title: "QWERY sucks"
 date: 2024-07-16T09:19:02+02:00
 showDate: true
 tags: []
-draft: true
+draft: false
 ---
 
 If you'd asked me a few months ago what I thought about ortholinear, split keyboards, or any keyboard layouts under 60%, I would have said that those are just niche and for the geeky people. My opinions have drastically changed since then. I now believe every CS student should nerd out and look into ergonomic keyboards or layouts if they see themselves using a keyboard in the future.
@@ -44,7 +44,7 @@ For gaming, every game has a lot of keybindings. Changing the keybindings of eve
 
 Ergonomic keyboards can quickly lead to a deep research rabbit hole. Something all ergonomic keyboards share is that they aim to avoid the angling of hands. They achieve this by either having both halves of the keyboard be angled to allow for straight arms or by simply splitting the keyboard in two. Having a split keyboard allows for your arms to be straight respective to your shoulders. This avoids your arms from aiming inwards and then the arms having to angle back out (ulnar deviation), which puts a lot of strain on the arms.
 
-![](/content/posts/qwerty-sucks/ulnar_deviation.webp)
+![](/content/posts/qwerty-sucks/ulnar_deviation.png)
 
 
 In my split keyboard research I first stumbled upon ergonomic keyboards like the Kinesis Advantage 360 or Glove 80. These are off the shelf products, but I didn't feel like shelling out half a grand for a keyboard.
