@@ -1,5 +1,5 @@
 ---
-title: "QWERY sucks"
+title: "QWERTY sucks"
 date: 2024-07-16T09:19:02+02:00
 showDate: true
 tags: []
