@@ -20,11 +20,9 @@ Below are heat maps showing the most frequent letters in English. Take note of h
 
 Over the years, I've gotten really fast at typing on QWERTY, being in the 98th percentile on typeracer. I have to admit though, my typing form is some 6 finger Frankenstein-technique which also doesn't help with reducing finger strain. I thought I might as well switch to a better layout if I plan to relearn typing.
 
-![[layout_heatmap.jpeg]]
+![](/content/posts/qwerty-sucks/layout_heatmap.jpeg)
 
 A layout I've started my journey on is colemak-dh. It is very similar to the colemak layout shown above with some slight modifications to make it even better. Most notably D and H are moved underneath T and N, with the idea that moving fingers down is easier and more comfortable than moving the fingers laterally. The idea behind colemak is to keep a lot of special keys in the same or similar locations (Q, Z, X, C, etc.) to allow for an easier transition from QWERTY while making the whole layout ergonomic to use.
-
-(image of colemak-dh)
 
 During my first month in May I aimed to spend at least 30 minutes to practice the layout on keybr.com, a website which improves typing by slowly introducing letters and having you focus on your weakest letter.
 
@@ -46,13 +44,14 @@ For gaming, every game has a lot of keybindings. Changing the keybindings of eve
 
 Ergonomic keyboards can quickly lead to a deep research rabbit hole. Something all ergonomic keyboards share is that they aim to avoid the angling of hands. They achieve this by either having both halves of the keyboard be angled to allow for straight arms or by simply splitting the keyboard in two. Having a split keyboard allows for your arms to be straight respective to your shoulders. This avoids your arms from aiming inwards and then the arms having to angle back out (ulnar deviation), which puts a lot of strain on the arms.
 
-![[ulnar_deviation.webp]]
+![](/content/posts/qwerty-sucks/ulnar_deviation.webp)
+
 
 In my split keyboard research I first stumbled upon ergonomic keyboards like the Kinesis Advantage 360 or Glove 80. These are off the shelf products, but I didn't feel like shelling out half a grand for a keyboard.
 
 To my surprise, there's a huge community behind ergonomic split keyboards. Lots of different variations making it easy to choose exactly what suits you. In the end I decided on a choc _crkbd_ (corne keyboard) which leaves me with 42 keys.
 
-![[crkbd.jpeg]]
+![](/content/posts/qwerty-sucks/crkbd.jpeg)
 
 The above is my crkbd. It is intended for your hand to nicely rest on the home row. Your thumbs, the strongest fingers, handle the three special keys on the bottom instead of both being wasted on a huge space bar. This frees up your pinky from having to do finger gymnastics to reach uncomfortable far away keys.
 
@@ -72,16 +71,16 @@ The notable thumb keys are the `&cmo 2` and `&cmo 4` keys which are a modified v
 
 Notably I also have my backspace on the left where caps lock usually is. It actually amazed me how natural it feels to be there. It is currently the only key I mispress on standard keyboards nowadays.
 
-![[layer1.png]]
+![](/content/posts/qwerty-sucks/layer1.png)
 
 My second layer consists of my symbols on the left side and the navigation keys on my right. This is reached when I hold my left thumb layer-switch key. My QWERTY typing form was so illegal, that when using VIM I actually rest my fingers on `hjkl` instead of `jkl;`, so I just got used to having the "arrow" keys be on my home row. And below the arrow keys I have the corresponding faster movements Home, PgDown, PgUp, End.
 
-![[layer2.png]]
+![](/content/posts/qwerty-sucks/layer2.png)
 
 My third layer the one I reach when pressing the right thumb layer-switch key. In this layer I have a whole numpad on my right hand. I find a numpad so much superior to writing numbers. Also helps me get high scores in the Monkeytype accountant mode.
 And on the left side I just have all my F-keys jumbled in as well as my shift is a caps lock. Not that I've actually ever really needed the caps lock since I started using this keyboard.
 
-![[layer3.png]]
+![](/content/posts/qwerty-sucks/layer3.png)
 
 ### Conclusion
 
@@ -91,4 +90,4 @@ Since I started writing this post almost three months ago I have improved a lot 
 
 I severely underestimated how long this whole journey would take. If I spent a bit more time typing and was less scared to use it at work my progress might've been a bit faster.
 
-Hope I was able to inspire you to also explore this part of keyboards and get you nerded out. When are you switching to a corne?
+Hope I was able to inspire you to also explore this part of keyboards. When are you switching to a corne?
