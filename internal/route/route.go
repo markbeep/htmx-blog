@@ -41,6 +41,8 @@ type PostsHandler struct {
 	sortedPosts []*Post
 }
 
+var rootPath = os.Getenv("ROOT_PATH")
+
 func (ph *PostsHandler) sortPosts() {
 	ph.sortedPosts = []*Post{}
 	for _, v := range ph.posts {
@@ -56,22 +58,23 @@ func (ph *PostsHandler) GetPosts() []*Post {
 }
 
 func Favicon(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "static/favicons/favicon.ico")
+	http.ServeFile(w, r, filepath.Join(rootPath, "static/favicons/favicon.ico"))
 }
 
 func Robots(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "static/robots.txt")
+	http.ServeFile(w, r, filepath.Join(rootPath, "static/robots.txt"))
 }
 
 func Static(w http.ResponseWriter, r *http.Request) {
 	path := strings.Trim(r.URL.Path, "/")
-	fileInfo, err := os.Stat(path)
+	joinedPath := filepath.Join(rootPath, path)
+	fileInfo, err := os.Stat(joinedPath)
 	if err != nil || fileInfo.IsDir() {
 		config.Logger.Warn(err.Error())
 		w.Write([]byte("404"))
 		return
 	}
-	http.ServeFile(w, r, path)
+	http.ServeFile(w, r, joinedPath)
 }
 
 func Content(w http.ResponseWriter, r *http.Request) {
@@ -92,7 +95,7 @@ func Content(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	path := strings.Trim(r.URL.Path, "/")
-	http.ServeFile(w, r, path)
+	http.ServeFile(w, r, filepath.Join(rootPath, path))
 
 }
 
@@ -102,7 +105,7 @@ var XMLBuffer []byte
 func XML(posts []*Post) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if XMLBuffer == nil {
-			tmpl := template.Must(template.ParseFiles("components/index.xml"))
+			tmpl := template.Must(template.ParseFiles(filepath.Join(rootPath, "components/index.xml")))
 			var tmpBuffer bytes.Buffer
 			tmpl.Execute(&tmpBuffer, map[string]any{
 				"Posts":    posts,
@@ -155,15 +158,12 @@ func (ph *PostsHandler) ConvertMarkdown(inPath string) error {
 		if err != nil {
 			return err
 		}
-		if !strings.HasSuffix(path, ".md") || err != nil {
+		if !strings.HasSuffix(path, ".md") {
 			return nil
 		}
 
 		post := Post{}
 		post.Path = strings.Replace(strings.TrimPrefix(path, inPath), ".md", "", 1)
-		if err != nil {
-			return err
-		}
 		ph.posts[post.Path] = &post
 
 		log.Printf("Generated post: %s", post.Path)

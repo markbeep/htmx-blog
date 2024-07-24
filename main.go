@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 
 	"log"
 	"net/http"
@@ -27,7 +28,7 @@ func main() {
 	}
 
 	postsHander := route.PostsHandler{}
-	postsHander.ConvertMarkdown("content")
+	postsHander.ConvertMarkdown(filepath.Join(os.Getenv("ROOT_PATH"), "content"))
 
 	r := chi.NewRouter()
 	r.Use(route.MiddlewareLogging)

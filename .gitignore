@@ -19,3 +19,4 @@ node_modules
 /playwright/.cache/
 *_templ.go
 result
+vendor
