@@ -1,11 +1,8 @@
 name: Build and Deploy Dockerfile
 
 on:
-  workflow_run:
-    workflows: ["Playwright Tests"]
+  push:
     branches: [main]
-    types:
-      - completed
 
 env:
   DOCKER_TAG: ${{ secrets.DOCKER_HUB_USERNAME }}/htmx-blog:latest
@@ -13,7 +10,6 @@ env:
 jobs:
   website:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,17 +20,34 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Build Docker image using Nix
         run: nix build ".#docker"
-      
+
+      - name: Load image
+        run: |
+          export IMAGE_TAG=$(docker load < result | grep -Po 'Loaded image: \K.*')
+          echo "Pushing image ${IMAGE_TAG}"
+          echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
+
+      # Test playwright
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       
-      - name: Load and push image to GHCR
+      - name: Push image
         run: |
-          export IMAGE_TAG=$(docker load < result | grep -Po 'Loaded image: \K.*')
-          echo "Pushing image ${IMAGE_TAG}"
-          echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
           docker tag $IMAGE_TAG $DOCKER_TAG
           docker push $DOCKER_TAG
