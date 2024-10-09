@@ -34,7 +34,7 @@
       @apply text-slate-400;
     }
     p {
-      @apply my-1;
+      @apply my-2;
     }
     hr {
       @apply w-1/2;
