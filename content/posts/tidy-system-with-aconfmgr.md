@@ -14,7 +14,7 @@ As some might know, the past years I was an avid NixOS user. I was attracted by 
 
 This made me quite conservative on what I installed and hence mostly relied on installing packages only for a shell session instead of system-wide. Read my more than two year old blogpost about this [here](/posts/nix-direnv-setup). But this whole ordeal with a config file OS also forced me to be tidy about what resides on my system. My system was basically in a permanent clean state with no garbage packages anywhere.
 
-I have recently started using a new laptop and with that I felt it was time to change things up again. I was also starting to get annoyed at simple things like binaries with shared libraries not working out of the box on NixOS (only took me almost 3 years). I initially went for an immutable fedora, but that wasn't able to fulfill the itch I was looking for. Upon stumbling upon the aforementioned tool, I knew exactly what distro I have to run.
+I have recently started using a new laptop and with that I felt it was time to change things up again. I was also starting to get annoyed at simple things like binaries with shared libraries not working out of the box on NixOS (only took me almost 3 years). I initially went for an immutable fedora, but that wasn't able to fulfill the itch I was looking for. Upon stumbling upon the aforementioned tool, I knew exactly what distro I had to run.
 
 ## The itch fulfilled
 
@@ -26,7 +26,7 @@ I then stumbled upon [aconfmgr](https://github.com/CyberShadow/aconfmgr). The ba
 
 The idea with aconfmgr is "install first, worry and sort later", which is a nice change to NixOS's approach of "worry and sort first, install later".
 
-So I install what I want as normal. Oh, I need X for this course. I can quickly install it and start using it. But let's say it didn't quite work and i also had to install the dependency D for X to work.
+So I install what I want as normal. Oh, I need X for this course. I can quickly install it and start using it. But let's say it didn't quite work and i also have to install the dependency D for X to work.
 
 Afterwards I can then run `aconfmgr save` in the terminal and it will generate a "unsorted" config file which will then list X and D. The config file looks like this:
 
@@ -55,7 +55,7 @@ I then also add my aconfmgr config files to my gitified dotfiles so I can also s
 
 ## And there's more
 
-`aconfmgr apply` doesn't only remove unlisted packages, it also adds uninstalled but listed packages. It also doesn't track packages, but it also keeps track of files (like the config files in /etc).
+`aconfmgr apply` doesn't only remove unlisted packages, it also adds uninstalled but listed packages. It also doesn't only track packages, but it also keeps track of files (like the config files in /etc).
 
 So in theory you can use it to backup your system state and if you ever decide to reset your system, you can hop back with the correct packages and files.
 
