@@ -16,7 +16,7 @@ What I found was that it's extremely easy to create a quick CLI tool that pops u
 
 If I want to quickly install a package, what I can do, is simply press `Super+P`, which then opens my fuzzy finding package manager terminal window as a popup in the middle of my screen. I can now search for any packages I want with fuzzy matching. Additionally I also get all the relevant information like URL, author, last updated at, etc. to make sure I'm downloading the right package. Once the download is complete the popup nicely disappears and I can go on with my work.
 
-![][/content/posts/popup-tools/paruz-popup.png]
+![](/content/posts/popup-tools/paruz-popup.png)
 
 You can create most of this without any third-party dependencies, using just pacman/yay/paru. I'll also mention how to below. In the screenshot above, and because of straight-up laziness, I myself use [paruz](https://github.com/joehillen/paruz).
 
@@ -28,7 +28,7 @@ Now one of the problems is, that when I want to open a specific devcontainer wor
 
 So my task was to create some terminal script that allowed me to launch VSCode in a workspace. But now that always requires me to first open the terminal just to then open VSCode. So why not expand that into a popup just like I did with the package manager above.
 
-![][/content/posts/popup-tools/vsc-popup.png]
+![](/content/posts/popup-tools/vsc-popup.png)
 
 Now I can simply run `Ctrl+T` (tbd, might change) and open a nice popup that allows me to pick the VSCode workspace I want to resume.
 
