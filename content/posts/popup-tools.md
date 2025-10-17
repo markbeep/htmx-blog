@@ -92,56 +92,32 @@ find ~/.config/Code/User/workspaceStorage -type f \
 	-exec jq -r .folder {} +
 ```
 
-Then using a vibe coded fish function, the base directory is extracted and shown in the fzf menu:
+Then using a fish function, the base directory is extracted and shown in the fzf menu:
 
 ```fish
 # .config/fish/functions/vscode_recent.fish
-function vscode_recent --description "Open recent VSCode workspaces"
+function vscode_recent --description "Open recent VSCode workspace via fzf"
     #!/usr/bin/env fish
 
-    # Collect all workspace folder URIs
-    set entries (find ~/.config/Code/User/workspaceStorage -type f -name "workspace.json" -exec jq -r '.folder' {} + | sort -u)
+    # 1. Finds all workspace files
+    # 2. Turn slashes into tabs (for better formatting in fzf)
+    # 3. Add spaces to 'file:' to align results with 'vscode-remote:'
+    # 4. Add color to remote/file type
+    # 5. Show with fzf (only show uri type + basedir)
+    # 6. Remove spaces
+    # 7. Turn tabs back into slashes
+    find .config/Code/User/workspaceStorage -type f -name "workspace.json" \
+        -exec jq -r .folder {} + \
+        | sed 's/\//\t/g' \
+        | sed 's/file:/file:         /g' \
+        | sed -E 's/(.+:)/\x1b[1;34m\1\x1b[0m/g' \
+        | fzf --ansi --delimiter=\t --with-nth=1,-1 --prompt="VSCode Workspaces > " \
+        | sed 's/ //g' \
+        | sed 's/\t/\//g' \
+        | read -l uri
 
-    if test (count $entries) -eq 0
-        echo "No VSCode workspaces found."
-        exit 1
-    end
-
-    # Lists
-    set basenames
-    set uris
-    set display_list
-    set seen_hashes
-
-    for uri in $entries
-        set uri (string trim -r -c '/' $uri)
-        set base (basename $uri)
-
-        # Identify whether this is Remote or Local
-        if string match -q "vscode-remote://*" $uri
-            set label 'Remote '
-        else if string match -q "file://*" $uri
-            set label 'Local  '
-        else
-            set label Unknown
-        end
-
-        set basenames $basenames $base
-        set uris $uris $uri
-        set display_list $display_list "$label | $base"
-    end
-
-    # Adds the fzf popup/selection
-    set selected (printf '%s\n' $display_list | sort | fzf --prompt="VSCode Workspaces > ")
-
-    if test -n "$selected"
-        set chosen_base (string split -f2 '|' $selected | string trim)
-        for i in (seq (count $basenames))
-            if test $basenames[$i] = $chosen_base
-                code --folder-uri $uris[$i]
-                break
-            end
-        end
+    if test -n "$uri"
+        code --folder-uri $uri
     end
 end
 ```
