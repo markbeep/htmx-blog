@@ -30,7 +30,7 @@ So my task was to create some terminal script that allowed me to launch VSCode i
 
 ![](/content/posts/popup-tools/vsc-popup.png)
 
-Now I can simply run `Ctrl+T` (tbd, might change) and open a nice popup that allows me to pick the VSCode workspace I want to resume.
+Now I can simply run `Super+P` and open a nice popup that allows me to pick the VSCode workspace I want to resume.
 
 ### Quick How-to
 
@@ -97,8 +97,6 @@ Then using a fish function, the base directory is extracted and shown in the fzf
 ```fish
 # .config/fish/functions/vscode_recent.fish
 function vscode_recent --description "Open recent VSCode workspace via fzf"
-    #!/usr/bin/env fish
-
     # 1. Finds all workspace files
     # 2. Turn slashes into tabs (for better formatting in fzf)
     # 3. Add spaces to 'file:' to align results with 'vscode-remote:'
