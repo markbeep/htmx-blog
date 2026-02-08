@@ -14,38 +14,28 @@ really bad. I instead then opted for [goldmark](https://github.com/yuin/goldmark
 
 ## Installation
 
-To get the blog running locally you first need `go 1.21`. You'll also need [templ](https://templ.guide/quick-start/installation) which has three quick ways to install:
+To get the blog running locally you first need a bunch of tools. The easiest way to get up and running is with [mise](https://mise.jdx.dev/)
+where you can install and activate the required tools with `mise activate`. If you want to manually install the tools
+look into the `mise.toml` file for the exact versions required.
 
-```bash
-go install github.com/a-h/templ/cmd/templ@latest # install via go
-curl -o https://github.com/a-h/templ/releases/download/v0.2.432/templ_Linux_x86_64.tar.gz && chmod +x templ # install binary
-nix run github:a-h/templ # run using nix
-```
+Justfile makes it easier to _just_ run the required programs. Look into the `justfile` file to see the full commands.
 
-Once templ and go is set, you can generate the template go files and then start the server:
+1. Run templ to generate the go files that are then required:
 
-```bash
-templ generate
-go run .
-```
+   ```sh
+   templ generate
+   ```
 
-### Hot Reload
+2. Run the webserver:
 
-For the best developer experience I recommend getting [air](https://github.com/cosmtrek/air) which enables hot-reloading on save. Install air and run it:
+   ```sh
+   just d
+   ```
 
-```bash
-go install github.com/cosmtrek/air@latest
-air
-```
-
-### Styling
-
-If you're working on the css or styling, it is recommended to also get the [tailwindcss CLI](https://tailwindcss.com/blog/standalone-cli) tool and run it on the side to keep on updating
-the `main.css` stylesheet:
-
-```bash
-tailwindcss -i static/tw.css -o static/main.css --watch
-```
+3. In a separate terminal, run tailwindcss to continously update the css files as required:
+   ```sh
+   just tw
+   ```
 
 ### Docker
 
@@ -86,5 +76,5 @@ nix run .#tailwindcss -- -i static/tw.css -o static/main.css --watch
 Posts can be created by executing the `post.sh` script. Simply execute the following:
 
 ```sh
-./post.sh content/posts/name_of_post
+just new content/posts/name_of_post
 ```
