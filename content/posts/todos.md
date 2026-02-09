@@ -1,5 +1,6 @@
 ---
 title: "TODO: Create blogpost about todo and idea management"
+description: "Managing a lot of todos and ideas can quickly get unruly. Super Productivity allows me to more easily manage them and also has me being more productive."
 date: 2026-02-08T12:37:25+01:00
 showDate: true
 tags: []
