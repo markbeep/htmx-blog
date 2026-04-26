@@ -82,9 +82,9 @@ func Content(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("invalid request"))
 		return
 	}
-	// validate path so we only give out images
+	// validate path so we only give out images/content files
 	valid := false
-	for _, ending := range config.ImageFormats {
+	for _, ending := range config.ContentFormats {
 		if strings.HasSuffix(r.URL.Path, ending) {
 			valid = true
 			break
