@@ -13,6 +13,7 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/markbeep/htmx-blog/components"
 	"github.com/markbeep/htmx-blog/internal/route"
 )
@@ -31,6 +32,7 @@ func main() {
 	postsHander.ConvertMarkdown(filepath.Join(os.Getenv("ROOT_PATH"), "content"))
 
 	r := chi.NewRouter()
+	r.Use(middleware.GetHead)
 	r.Use(route.MiddlewareLogging)
 
 	r.Get("/", templ.Handler(components.Index()).ServeHTTP)

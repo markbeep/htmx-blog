@@ -124,7 +124,7 @@ func MiddlewareLogging(next http.Handler) http.Handler {
 			next.ServeHTTP(w, r)
 		} else {
 			logger := httplog.NewLogger("htmx-blog", httplog.Options{
-				LogLevel: "warn",
+				LogLevel: "info",
 			})
 			httplog.RequestLogger(logger)(next).ServeHTTP(w, r)
 		}

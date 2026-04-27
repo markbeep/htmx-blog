@@ -8,8 +8,26 @@ env:
   DOCKER_TAG: ${{ secrets.DOCKER_HUB_USERNAME }}/htmx-blog:latest
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+      - uses: jdx/mise-action@v4
+        with:
+          cache: false
+      - name: Check Build
+        run: go build
+      - name: Check links
+        run: |
+          go run . &
+          sleep 3
+          npx broken-link-checker http://localhost:3000 -ro
+
   website:
     runs-on: ubuntu-latest
+    needs: check
     steps:
       - uses: actions/checkout@v4
         with:
