@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: "build"
+
 env:
   DOCKER_TAG: ${{ secrets.DOCKER_HUB_USERNAME }}/htmx-blog:latest
 
@@ -15,17 +18,19 @@ jobs:
         with:
           submodules: recursive
       - uses: jdx/mise-action@v4
-        with:
-          cache: false
-      - name: Check Build
+      - name: Check build
         run: |
           templ generate
           go build
       - name: Check links
         run: |
-          go run -log warn . &
+          go run . -log warn &
           sleep 3
-          npx broken-link-checker http://localhost:3000 -ro
+          npx broken-link-checker http://localhost:3000 -ro \
+            --exclude "https://freefrontend.com/*" \
+            --exclude "https://nixos.org/*" \
+            --exclude "https://woile.dev/*" \
+            --exclude "https://www.sfml-dev.org/"
 
   website:
     runs-on: ubuntu-latest
