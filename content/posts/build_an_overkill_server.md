@@ -72,12 +72,10 @@ Because of this hassle, I decided to simply host all my images on
 [Docker Hub](https://hub.docker.com/). A free way to store all your Docker images
 and then easily download them on any node of your cluster. Now all my Github
 repositories I want to be built to Docker Hub I simply have a Github action
-([example](https://github.com/markbeep/Wenjim/blob/master/.github/workflows/docker-prod.yaml))
+([example](https://github.com/markbeep/Wenjim/blob/staging/.github/workflows/build-docker.yaml))
 that then automatically builds my Dockerfiles into images and uploads them to
 Docker Hub. So after every push, I'll now have the most up-to-date image available
-on any node (and you do as well). [This](https://github.com/markbeep/Wenjim/blob/master/.github/workflows/docker-staging.yaml)
-is for example the Github action for one of my sites with a backend and frontend that
-I usually just copy-paste and modify slightly for new projects.
+on any node (and you do as well).
 
 So that's cool, but don't I still have to manually access my server to create the
 Kubernetes config and restart the applications? No, that's where ArgoCD comes

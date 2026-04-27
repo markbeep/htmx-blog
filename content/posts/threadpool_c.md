@@ -40,7 +40,7 @@ The idea is that every time we have some new work to be done, we add the data an
 
 The following chapter is all about how the thread pool is exactly implemented in case you also want to try implementing it yourself.
 
-The full implementations can be found here if you ever want a full overview: [Header](https://github.com/markbeep/Disco-C/blob/master/libs/utils/t_pool.h) & [Source](https://github.com/markbeep/Disco-C/blob/master/libs/utils/t_pool.c)
+The full implementations can be found here if you ever want a full overview: [Header](https://github.com/markbeep/Disco-C/blob/master/include/utils/t_pool.h) & [Source](https://github.com/markbeep/Disco-C/blob/master/src/utils/t_pool.c)
 
 ## Work Node
 
@@ -120,7 +120,7 @@ t_pool_t *t_pool_init(int num_t) {
 }
 ```
 
-In this code snippet, I let out a big part which was just the struct initialization. The whole function can be viewed [here](https://github.com/markbeep/Disco-C/blob/master/libs/utils/t_pool.c#L31-L55).
+In this code snippet, I let out a big part which was just the struct initialization. The whole function can be viewed [here](https://github.com/markbeep/Disco-C/blob/master/src/utils/t_pool.c#L60-L79).
 
 The most important part of this function is the thread-creation. We create `num_t` amount of threads all with the `thread_work_loop` function (more explained later). This is a function that makes the threads simply loop forever and check for new work until told to stop. We then detach each of the threads, because we'll not be joining them later on and this frees the memory that gets allocated for it.
 
@@ -254,7 +254,7 @@ void t_pool_destroy(t_pool_t *tp) {
 
 This is our method to clean up all the memory we used, so we don't end up with tons of memory leaks in the end. The basic idea is that we first set `stop` to 1 which makes all the threads stop as soon as they can. We then clear up the whole queue and free up any work nodes that are still in there. In the end, we use `pthread_cond_broadcast` (Java: `notifyAll`) to wake up all the threads with the `work_cond` variable. It's like we're waking up all threads telling them there's more work to be done, but actually, we just woke them up to dump them. Once we waited for all threads to finish, we can clean up the rest of the attributes.
 
-The freeing part can be seen [here](https://github.com/markbeep/Disco-C/blob/master/libs/utils/t_pool.c#L103-L109).
+The freeing part can be seen [here](https://github.com/markbeep/Disco-C/blob/master/src/utils/t_pool.c#L146-L151).
 
 ### t_process_count
 

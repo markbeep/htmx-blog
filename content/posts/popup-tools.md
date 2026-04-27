@@ -18,7 +18,7 @@ If I want to quickly install a package, what I can do, is simply press `Super+P`
 
 ![](/content/posts/popup-tools/paruz-popup.png)
 
-You can create most of this without any third-party dependencies, using just pacman/yay/paru. I'll also mention how to below. In the screenshot above, and because of straight-up laziness, I myself use [paruz](https://github.com/joehillen/paruz).
+You can create most of this without any third-party dependencies, using just pacman/yay/paru. I'll also mention how to below. In the screenshot above, and because of straight-up laziness, I myself use paruz (the github repo has since been removed so I use my own function as shown below).
 
 ### Launch VSC Workspaces
 
@@ -73,13 +73,20 @@ In the `paruz-popup.sh` I simply have the following:
 kitty --class floating-popup -e bash -c 'paruz' &
 ```
 
-Alternatively, if you want to use pacman/yay/paru without using paruz:
+Alternatively, you can create your own "paruz" using pacman/yay/paru. Here's my fish function for it:
 
-```sh
-kitty --class floating-popup -e bash -c '
-  pacman -Slq | fzf --multi --preview "pacman -Si {1}" \
-  | xargs -ro sudo pacman -S;
-' &
+```fish
+function paruz
+    set -l pkgs (
+      paru -Sl |\
+      sed -e "s: :/:; s/ unknown-version//; /installed/d" |\
+      fzf --multi --ansi --preview "paru -Si {1}"
+    )
+    if test -z "$pkgs"
+        return
+    end
+    echo $pkgs | awk '{print $1}' | xargs -ro paru -S
+end
 ```
 
 And now we're already finished. With `Super+P` we can easily install what we want.

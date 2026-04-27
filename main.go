@@ -39,7 +39,7 @@ func main() {
 	r.Get("/health", templ.Handler(components.Health()).ServeHTTP)
 	r.Get("/about", templ.Handler(components.About()).ServeHTTP)
 	r.Get("/polyring", templ.Handler(components.Polyring()).ServeHTTP)
-	r.Get("/*", templ.Handler(components.Error404()).ServeHTTP)
+	r.Get("/*", templ.Handler(components.Error404(), templ.WithStatus(http.StatusNotFound)).ServeHTTP)
 
 	r.Get("/favicon.ico", route.Favicon)
 	r.Get("/static/*", route.Static)
@@ -49,7 +49,6 @@ func main() {
 
 	r.Get("/posts", templ.Handler(components.Posts(postsHander.GetPosts())).ServeHTTP)
 
-	// Add all of the posts
 	for _, p := range postsHander.GetPosts() {
 		post := *p
 		t := templ.ComponentFunc(func(_ context.Context, w io.Writer) (err error) {

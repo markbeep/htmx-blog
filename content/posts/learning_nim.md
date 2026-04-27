@@ -87,7 +87,7 @@ Nim has different ways to initialize variables. These include `var`,`let` and `c
 
 ### Switch Cases
 
-Switch cases might come as a familiar concept, as they exist in most other language ([Including Python 3.10](https://towardsdatascience.com/switch-case-statements-are-coming-to-python-d0caf7b2bfd3)). Usually each case is for a single case, which makes it often tedious if you need to cover a lot different values for each case. Nim takes this a step further and allows you to define a range of values that hold for a case.
+Switch cases might come as a familiar concept, as they exist in most other language ([Including Python 3.10](https://peps.python.org/pep-0636/)). Usually each case is for a single case, which makes it often tedious if you need to cover a lot different values for each case. Nim takes this a step further and allows you to define a range of values that hold for a case.
 
 ```nim
 var x = 9

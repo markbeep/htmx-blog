@@ -47,8 +47,8 @@ For deciding the theme or basis of the website, there are tons of methods one ca
 takes a lot of time to create a reasonable site, as I have **0** experience. Using frameworks and/or using pre-made themes allows for quickly setting up
 a website with the theme you want. It came down to chooing between Jekyll and Hugo for me, as they are both relative easy to set up and take a lot of work
 off your shoulders. In the end, I decided to go with [Hugo](https://gohugo.io/) as I preferred the themes and additionally themes are all free. I fell in
-love with this theme. It's called [Call me Sam](https://themes.gohugo.io/hugo-theme-sam/). There were only a few things to do to get up and running. For the
-background I just use a video downloaded from [here](https://www.pexels.com/video/a-mist-over-water-2534297/). Then I clapped it into my video editor to
+love with this theme. It's called [Call me Sam](https://github.com/victoriadrake/hugo-theme-sam). There were only a few things to do to get up and running. For the
+background I just use a video downloaded from pexels.com. Then I clapped it into my video editor to
 make it a seamless loop. I then simply had to place the video file in the `static` folder for it to work.
 
 ### 404 Page
