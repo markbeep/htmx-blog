@@ -18,7 +18,9 @@ jobs:
         with:
           cache: false
       - name: Check Build
-        run: go build
+        run: |
+          templ generate
+          go build
       - name: Check links
         run: |
           go run . &
