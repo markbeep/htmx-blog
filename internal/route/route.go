@@ -117,18 +117,20 @@ func XML(posts []*Post) func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func MiddlewareLogging(next http.Handler) http.Handler {
-	fn := func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/health" { // don't log /health
-			next.ServeHTTP(w, r)
-		} else {
-			logger := httplog.NewLogger("htmx-blog", httplog.Options{
-				LogLevel: "info",
-			})
-			httplog.RequestLogger(logger)(next).ServeHTTP(w, r)
+func MiddlewareLogging(logLevel string) func(next http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		fn := func(w http.ResponseWriter, r *http.Request) {
+			if r.URL.Path == "/health" { // don't log /health
+				next.ServeHTTP(w, r)
+			} else {
+				logger := httplog.NewLogger("htmx-blog", httplog.Options{
+					LogLevel: logLevel,
+				})
+				httplog.RequestLogger(logger)(next).ServeHTTP(w, r)
+			}
 		}
+		return http.HandlerFunc(fn)
 	}
-	return http.HandlerFunc(fn)
 }
 
 func getMarkdownMetadata(post *Post, ctx *parser.Context) error {

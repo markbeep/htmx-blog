@@ -19,7 +19,8 @@ import (
 )
 
 var (
-	port = flag.String("port", os.Getenv("PORT"), "port to host the website at")
+	port     = flag.String("port", os.Getenv("PORT"), "port to host the website at")
+	logLevel = flag.String("log", os.Getenv("LOGLEVEL"), "log level to use")
 )
 
 func main() {
@@ -27,13 +28,16 @@ func main() {
 	if *port == "" {
 		*port = "3000"
 	}
+	if *logLevel == "" {
+		*logLevel = "info"
+	}
 
 	postsHander := route.PostsHandler{}
 	postsHander.ConvertMarkdown(filepath.Join(os.Getenv("ROOT_PATH"), "content"))
 
 	r := chi.NewRouter()
 	r.Use(middleware.GetHead)
-	r.Use(route.MiddlewareLogging)
+	r.Use(route.MiddlewareLogging(*logLevel))
 
 	r.Get("/", templ.Handler(components.Index()).ServeHTTP)
 	r.Get("/health", templ.Handler(components.Health()).ServeHTTP)

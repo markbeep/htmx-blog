@@ -23,7 +23,7 @@ jobs:
           go build
       - name: Check links
         run: |
-          go run . &
+          go run -log warn . &
           sleep 3
           npx broken-link-checker http://localhost:3000 -ro
 
