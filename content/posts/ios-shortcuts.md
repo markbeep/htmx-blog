@@ -1,10 +1,9 @@
 ---
-title: "Expense Tracking using iOS Shortcuts"
+title: "Expenses Tracking using iOS Shortcuts"
 description: "A quick guide on how I have my expenses tracking set up with Google Sheet and an iOS shortcut for adding entries"
-date: 2026-04-26T20:50:35+02:00
+date: 2026-04-27T10:20:35+02:00
 showDate: true
-tags: []
-draft: true
+tags: ["programming", "finance"]
 ---
 
 A few months back I noticed I was spending a lot of money, but I just had no good way to track where that money actually went other than manually going through my bank entries one by one. It was time to add some way of tracking finances so I can better look back and see what crap I wasted my money on.
@@ -13,7 +12,7 @@ For common tasks like tracking expenses or managing [TODOs](/posts/todos), a lar
 
 ## Sheets
 
-There are a lot of finance tools. Some self-hosted, some overly expensive, and some open-source. But all have a common flaw. They are often extremely inflexible. I want to foremost track my finances in an easy and minimal manner. If at a later point I decide I want to now add a cronjob that, for example, automatically adds my monthly subscriptions, I have to hope that whatever finance tool I'm using already supports subscriptions. And if not, hopefully it's open source so I can maybe contribute the subscription feature or at least hack it together for my personal use. But the subscriptions feature was just one example. There are a bunch of finance tracking apps that already support subscriptions. But replace it with some other feature X that you feel is very important or some graph representation Y that would make your finances so much easier to view. Very quickly you'll reach a point where all the apps that support your desired feature set either simply don't exist, or are way too complicated/expensive for a little personal finance tracking. Such a flexible finance tracking app sounds almost impossible. Luckily there's already a 40 year old solution for simple finance tracking:
+There are a lot of finance tools. Some self-hosted, some overly expensive, and some with barely any features. But all have a common flaw. They are often extremely inflexible. I want to foremost track my finances in an easy and minimal manner. If at a later point I decide I want to now add a cronjob that, for example, automatically adds my monthly subscriptions, I have to hope that whatever finance tool I'm using already supports subscriptions. And if not, hopefully it's open source so I can maybe contribute the subscription feature or at least hack it together for my personal use. But the subscriptions feature was just one example. There are a bunch of finance tracking apps that already support subscriptions. Replace it with some other feature X that you feel is very important or some graph representation Y that would make your finances so much easier to view. Very quickly you'll reach a point where all the apps that support your desired feature set either simply don't exist, or are way too complicated/expensive for a little personal finance tracking. Such a flexible finance tracking app sounds almost impossible. Luckily there's already a 40 year old solution for simple finance tracking:
 
 It's Excel. Or at least, the whole spreadsheet system introduced with Excel 40 years ago. Of course, I don't use Excel myself though. I want to be able to edit my spreadsheets anywhere and on any device. Google Sheets fills that gap just perfectly for me.
 
@@ -50,10 +49,12 @@ To determine that link:
 
 ## iOS Shortcuts
 
-I use an iPhone, on which you can make use of the iOS shortcuts. I've never really used these before, but you can generally do quite a lot of useful things with these. Whether you actually want to spend a lot of time making these (on mobile) is another question though. The Shortcuts app is a good contender for the top 10 "worst mobile UX". The drag and drop that sometimes breaks in addition with some variables not showing up unless you restart the app make it extremely infuriating to develop. But at least once it works, it works.
+I use an iPhone, on which you can make use of the iOS shortcuts. I've never really used these before, but you can generally do quite a lot of useful things with them. Whether you actually want to spend a lot of time making these (on mobile) is another question though. The Shortcuts app is a valid contender for the "top 10 most dogwater mobile UX apps". The drag and drop that sometimes breaks in addition with some variables not showing up unless you restart the app make it extremely infuriating to develop. But at least once it works, it works. Not that that is an entirely high bar to reach.
 
-You can download the [shortcut here](/content/posts/ios-shortcuts/submit.shortcut) if you want to use it. It requires the google forms URL and the above four entry.ids from above to set up fully. You can then create a homescreen icon to launch it from, add it as a widget somewhere, or have it launch when you perform some gesture (like clicking the lock button three times).
+You can download the [shortcut here](/content/posts/ios-shortcuts/submit.shortcut) if you want to use it. It requires the google forms URL and the above four entry.ids from above to set up fully. There are multiple ways to launch it. You could create a homescreen icon or a widget on your lockscreen. Or alternatively, you can assign a gesture (like clicking the lock button three times) to launch the shortcut.
 
 As for how I actually use it, I don't have an all too strict system for naming my payments. Luckily I'm not an accountant and it's all just for my own two eyes. If I go to IKEA and buy a green chair for my room, I'd probably add it under "green chair ikea". A small hint so that a few months or maybe a year down the line I can look at my expenses and be reminded of how I spent 200.- for that green clothes hanger in the corner of my room.
 
-And that is how I have my finance/expenses tracking set up using just a Google Sheet for storing all the data, while having a shortcut on my phone to quickly add entries. I've since also created a few more shortcuts, albeit simpler. You can have them trigger when you open an app, so I have one that turns my screen grey when I open instagram, and then makes it colorful again when I close it. I leave the implementation as an exercise for the reader :P (the action is called "Set Color Filters").
+And that is how I have my finance/expenses tracking set up using just a Google Sheet for storing all the data, while having a shortcut on my phone to quickly add entries. I've since also created a few more shortcuts, albeit simpler. You can have them trigger when you open an app, so I have one that turns my screen grey when I open instagram, and then makes it colorful again when I close it. I leave the implementation as an exercise for the reader though (btw, the releavnt action is called "Set Color Filters"). Curious if you have any other shortcuts you use.
+
+![](/content/posts/ios-shortcuts/shortcut.jpg)

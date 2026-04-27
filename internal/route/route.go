@@ -96,7 +96,6 @@ func Content(w http.ResponseWriter, r *http.Request) {
 	}
 	path := strings.Trim(r.URL.Path, "/")
 	http.ServeFile(w, r, filepath.Join(rootPath, path))
-
 }
 
 var XMLBuffer []byte
