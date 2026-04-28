@@ -8,7 +8,10 @@ tailwindcss:
 new PATH:
     ./post.sh {{ PATH }}
 
+generate:
+    templ generate
+
 alias d := dev
 
-dev:
+dev: generate
     air

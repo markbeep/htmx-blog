@@ -21,6 +21,7 @@ templ Base(title, description string) {
 			<link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png"/>
 			<link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png"/>
 			<link rel="manifest" href="/static/favicons/site.webmanifest"/>
+			<link rel="alternate" type="application/rss+xml" title="Mark's Posts" href="/posts/index.xml">
 		</head>
 		<body class="dark" hx-ext="preload">
 			<!--[if lt IE 7]>
@@ -62,6 +63,12 @@ templ bottomBar(currentPath string) {
 				}
 			}
 			<a href="https://github.com/markbeep">github</a>
+		</div>
+		<div class="flex justify-center mt-4 text-base">
+			<a href="/posts/index.xml" aria-label="RSS Feed" hx-boost="false" target="_blank" class="flex items-center gap-2 hover:underline">
+				Subscribe via RSS
+				@RSSIcon()
+			</a>
 		</div>
 		<div class="mt-2 text-base text-center">
 			<p>made with <a href="https://htmx.org" class="underline">htmx</a></p>
