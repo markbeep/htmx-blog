@@ -2,6 +2,7 @@ package route
 
 import (
 	"bytes"
+	"fmt"
 	"html/template"
 	"io/fs"
 	"log"
@@ -34,6 +35,10 @@ type Post struct {
 	Description   string
 	Buffer        []byte
 	HtmlPath      string
+}
+
+func (p *Post) CDATAContent() template.HTML {
+	return template.HTML(fmt.Sprintf("<![CDATA[%s]]>", p.Buffer))
 }
 
 type PostsHandler struct {
@@ -107,7 +112,7 @@ func XML(posts []*Post) func(w http.ResponseWriter, r *http.Request) {
 			tmpl := template.Must(template.ParseFiles(filepath.Join(rootPath, "components/index.xml")))
 			var tmpBuffer bytes.Buffer
 			tmpl.Execute(&tmpBuffer, map[string]any{
-				"Posts":    posts,
+				"Posts":    posts[:10],
 				"FullPath": r.Host,
 			})
 			XMLBuffer = tmpBuffer.Bytes()

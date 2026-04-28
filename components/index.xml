@@ -1,4 +1,8 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss
+    version="2.0"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+>
 <channel>
 
 <title>Posts on Mark's Posts</title>
@@ -7,7 +11,11 @@
 <generator>Mark's Cool Site</generator>
 <language>en-us</language>
 <lastBuildDate>Wed, 13 Sep 2023 22:58:05 +0200</lastBuildDate>
-<atom:link href="https://{{ .FullPath }}/posts/index.xml" rel="self" type="application/rss+xml"/>
+<atom:link
+            href="https://{{ .FullPath }}/posts/index.xml"
+            rel="self"
+            type="application/rss+xml"
+        />
 
 {{ range .Posts }} {{ if not .Draft }}
 
@@ -17,6 +25,7 @@
 <pubDate>{{ .XMLDate }}</pubDate>
 <guid>https://{{ $.FullPath }}{{ .Path }}</guid>
 <description>{{ .Description }}</description>
+<content:encoded>{{ .CDATAContent }}</content:encoded>
 </item>
 
 {{ end }}
