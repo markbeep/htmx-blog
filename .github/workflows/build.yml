@@ -30,7 +30,9 @@ jobs:
             --exclude "https://freefrontend.com/*" \
             --exclude "https://nixos.org/*" \
             --exclude "https://woile.dev/*" \
-            --exclude "https://www.sfml-dev.org/"
+            --exclude "https://www.sfml-dev.org/" \
+            --exclude "**/*.shortcut" \
+            --exclude "**/*.xml"
 
   website:
     runs-on: ubuntu-latest
