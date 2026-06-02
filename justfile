@@ -1,5 +1,7 @@
 # https://just.systems
 
+default: dev
+
 alias tw := tailwindcss
 
 tailwindcss:

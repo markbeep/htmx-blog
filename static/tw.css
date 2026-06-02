@@ -53,8 +53,10 @@
       @apply underline;
       @apply underline-offset-2;
       @apply dark:text-slate-400;
-      @apply hover:dark:text-slate-500;
-      @apply hover:text-slate-500;
+      @apply sm:hover:dark:text-slate-500;
+      @apply sm:hover:text-slate-500;
+      @apply active:dark:text-slate-500;
+      @apply active:text-slate-500;
       @apply transition;
       @apply duration-300;
     }

@@ -21,7 +21,7 @@ My whole plan for this server was to use it for hosting different applications
 and websites. This includes my Discord bots
 ([Lecturfier](https://github.com/markbeep/lecturfier), [Cup](https://github.com/markbeep/cup),
 etc.) but also websites I like to hack at on the side. For example, my still WIP
-[Wenjim](https://wenjim.markc.su/) website to check when the best time to go to ASVZ
+[Wenjim](https://wenjim.rkma.dev/) website to check when the best time to go to ASVZ
 is. In the future, I was also planning to upgrade this blog to a dynamic website.
 
 For this setup I gave myself three options for how I could set up the whole server:

@@ -1,51 +1,82 @@
 package components
 
 templ Index() {
-	@Base("Hello, I'm Mark", "Mark's coding blog posts") {
-		<div class="h-screen w-screen overflow-hidden absolute">
-			<video
- 				class="top-0 left-0 w-full h-full object-cover"
- 				autoplay
- 				muted
- 				preload="mouseover"
- 				loop
- 				playsinline
-			>
-				Background aerial video flying through clouds above an ocean
-				<source src="/static/fog.mp4" type="video/mp4" poster="/static/fog.png"/>
-			</video>
-		</div>
-		<div
- 			class="h-screen w-screen dark:bg-slate-800/40 dark:text-slate-50 z-10 relative"
-		>
-			<div
- 				class="flex justify-center items-center h-full -z-20"
- 				hx-boost="true"
-			>
-				<main class="text-left flex flex-col text-6xl space-y-16">
-					<a
- 						class="dark:text-slate-50 underline underline-offset-[24px]"
- 						href="/posts"
- 						preload="mouseover"
-					>
-						posts
-					</a>
-					<a
- 						class="dark:text-slate-50 underline underline-offset-[24px]"
- 						href="https://github.com/markbeep"
-					>github</a>
-					<a
- 						class="dark:text-slate-50 underline underline-offset-[24px]"
- 						href="/polyring"
- 						preload="mouseover"
-					>polyring</a>
-					<a
- 						class="dark:text-slate-50 underline underline-offset-[24px]"
- 						href="/about"
- 						preload="mouseover"
-					>who is mark?</a>
-				</main>
-			</div>
-		</div>
-	}
+    @Base("Hello, I'm Mark", "Mark's coding blog posts") {
+        <div class="relative h-dvh w-dvw overflow-clip dark:bg-slate-800/40 dark:text-slate-50 flex justify-center items-center">
+            <style>
+                .soft-clouds {
+                    position: absolute;
+                    inset: -50%;
+                    width: 200%;
+                    height: 200%;
+                    pointer-events: none;
+                    z-index: 0;
+                    filter: blur(60px);
+                    opacity: 0.5;
+                    background-image:
+                        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.5) 0%, rgba(15, 32, 67, 0.25) 20%, transparent 45%),
+                        radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.5) 0%, rgba(15, 32, 67, 0.25) 25%, transparent 50%),
+                        radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.5) 0%, rgba(15, 32, 67, 0.25) 30%, transparent 55%);
+                    background-size: 100vmax 100vmax, 150vmax 150vmax, 120vmax 120vmax;
+                    background-repeat: repeat;
+                    animation: cloud-fall 60s linear infinite;
+                }
+                @keyframes cloud-fall {
+                    0% { background-position: 0px 0px, 0px 0px, 0px 0px; }
+                    100% { background-position: 0px 100vmax, 0px 150vmax, 0px 120vmax; }
+                }
+
+                .anim-rk { display: inline-block; animation: rk-slide 1.5s forwards 0.9s; }
+                .anim-ma { display: inline-block; animation: ma-slide 1.5s forwards 0.9s; }
+                @keyframes rk-slide { 100% { transform: translateX(160%); } }
+                @keyframes ma-slide { 100% { transform: translateX(-65%); } }
+            </style>
+
+            <div class="soft-clouds"></div>
+
+            <div class="z-10 flex flex-col items-start space-y-16">
+                <div class="font-mono text-6xl sm:text-8xl font-bold select-none">
+                    <span class="anim-rk">rk</span><span class="anim-ma">ma</span><span>.dev</span>
+                </div>
+
+                <div hx-boost="true">
+                    <style>
+                        .stagger-fade > a {
+                            opacity: 0;
+                            animation: fade-in 1s forwards;
+                        }
+                        .stagger-fade > a:nth-of-type(1) { animation-delay: 0.0s; }
+                        .stagger-fade > a:nth-of-type(2) { animation-delay: 0.3s; }
+                        .stagger-fade > a:nth-of-type(3) { animation-delay: 0.6s; }
+                        .stagger-fade > a:nth-of-type(4) { animation-delay: 0.9s; }
+                        @keyframes fade-in {
+                            100% { opacity: 1; }
+                        }
+                    </style>
+
+                    <main class="stagger-fade flex flex-col items-start text-6xl space-y-16">
+                        <a
+                            class="dark:text-slate-50 underline underline-offset-[24px]"
+                            href="/posts"
+                            preload="mouseover"
+                        >posts</a>
+                        <a
+                            class="dark:text-slate-50 underline underline-offset-[24px]"
+                            href="https://github.com/markbeep"
+                        >github</a>
+                        <a
+                            class="dark:text-slate-50 underline underline-offset-[24px]"
+                            href="/polyring"
+                            preload="mouseover"
+                        >polyring</a>
+                        <a
+                            class="dark:text-slate-50 underline underline-offset-[24px]"
+                            href="/about"
+                            preload="mouseover"
+                        >who is mark?</a>
+                    </main>
+                </div>
+            </div>
+        </div>
+    }
 }
