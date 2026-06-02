@@ -185,7 +185,7 @@ The post turned out a bit wordier than I'd hoped. But I hope I could maybe motiv
 
 # Footnotes
 
-[1] Paruz used to be available on the [AUR](https://aur.archlinux.org/packages/paruz-git). But the repository has been removed on Github and the version still available on AUR uses a broken paru version. I instead use the following fish function which allows for the same fuzzy matching of packages, but simply keep the name because it's fitting:
+[1] Paruz used to be available on the [AUR](https://aur.archlinux.org). But the repository has been removed on Github and the version still available on AUR uses a broken paru version. I instead use the following fish function which allows for the same fuzzy matching of packages, but simply keep the name because it's fitting:
 
 ```sh
 function paruz
