@@ -98,3 +98,18 @@ code:not(pre > code) {
 mjx-container {
   display: inline-block;
 }
+
+.gradient-text {
+  background: linear-gradient(to right, #94a3b8, #38bdf8, #818cf8, #94a3b8);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease-in-out infinite;
+  padding-bottom: 0.15em;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
