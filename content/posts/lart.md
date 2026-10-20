@@ -4,7 +4,6 @@ description: "How to larp as a coffee hipster without selling a kidney."
 date: 2026-10-20T08:40:16+02:00
 showDate: true
 tags: ["food"]
-draft: true
 ---
 
 Surprise! Not a technical blog post for once. I like making latte art, but I use a non-conventional method without the use of an espresso machine. So I wanted to share both my setup and, at the end, a step-by-step guide on how I do it.
@@ -13,11 +12,11 @@ Surprise! Not a technical blog post for once. I like making latte art, but I use
 
 I recently finished my Master's in computer science, so now it's only logical that I become a barista. As some of you might know, I like to occasionally do some latte arts (for brevity I will be calling them _larts_ throughout the post). You might have seen them on some Discord server I'm on, or have gotten a picture shoved in your face at only the slight mention of coffee. But to be straight up front, I'm not like the _other_ coffee enthusiasts with the thousand different tools that look more like butt plugs than anything you want to even have near food, lab-grade scales, multi-thousand-dollar coffee grinders, and of course an espresso machine that costs more than a kidney. I ain't got the time for all that.
 
-But, crucially, during an internship I did, they had a fancy espresso machine where I got a taste of the other side. The 'other side' refers to making larts of course. A highlight of each day was my daily morning and lunch cappuccinos where I had to activate 100% of my brain just to draw some white blob on my coffee. If I was lucky, it might've even looked like garlic. After the internship ended, I was suddenly missing something big from my morning routine. I didn't have an espresso machine at home, so I couldn't do any larts anymore. I needed some solution. But I also didn't want to sell my kidney just yet.
+But, crucially, during an internship I did, they had a fancy espresso machine where I got a taste of the other side. The 'other side' refers to making larts of course. A highlight of each day was my daily morning and lunch cappuccinos where I had to activate 100% of my brain just to draw some white blob on my coffee. If I was lucky, it might've even looked like garlic. After the internship ended, I was suddenly missing something big from my morning routine. I didn't have an espresso machine at home, so I couldn't do any larts anymore. I needed some solution, but I also didn't want to sell my kidney just yet.
 
 ![Garlic Lart](/content/posts/lart/garlic.jpeg)
 
-My coffee taste standards are absolutely in the gutter, which I proudly trained during the last quinquennium while slurping away at my daily free coffees at VIS. This means that I'm well suited to basically drink any quality of coffee, after all, it "muss ned schmegge, muss wirke". **(Trigger alert for coffee enthusiasts)** So I'm completely fine with sipping away on Nespresso coffee or using _pre-ground_ coffee powder. Frankly, I just bulk-buy one of the random Coop coffee powders in multiple kilos at a time.
+My coffee taste standards are absolutely in the gutter, which I proudly trained during the last quinquennium while slurping away at my daily free coffees at VIS. This means that I'm well suited to basically drink any quality of coffee, after all, it "muss ned schmegge, muss wirke". So I'm completely fine with sipping away on Nespresso coffee or using _pre-ground_ coffee powder. Frankly, I just bulk-buy one of the random Coop coffee powders in multiple kilos at a time.
 
 ## The Home-Setup
 
@@ -37,11 +36,11 @@ I ordered myself a small plastic-glass french press which also allows me to thro
 
 ![French Press](/content/posts/lart/french-press.jpg)
 
-An additional hurdle I encountered in the beginning was that Nespresso machines are very badly suited for larts. The machines add some fake crema on top which makes it very hard for the milk to stay on top of the surface when you try to draw your pattern. I therefore got myself a little 2-cup Bialetti Moka pot. Moka coffee has absolutely zero crema. That makes it perfect for larting.
+An additional hurdle I encountered in the beginning was that Nespresso machines are very badly suited for larts. The machines add some fake crema on top which makes it very hard for the milk to stay on top of the surface when you try to draw your pattern. I therefore got myself a little 2-cup Bialetti Moka pot. Moka coffee has absolutely zero crema, which makes it perfect for larting.
 
 ![Bialetti](/content/posts/lart/bialetti-empty.jpg)
 
-**Note:** Bialettis don't work on induction. Only a few months later did I see that there's actually a Bialetti version specifically made for [induction](https://www.galaxus.ch/en/s2/product/bialetti-moka-induction-4-cups-moka-pots-13260042).
+**Note:** Bialettis don't work on induction. Only a few months later did I see that there's actually a Bialetti version specifically made for induction. But the current setup works, so not looking to change it right now.
 
 I've now been using the Bialetti + french-press setup for the past two years to make my larts and haven't had any complaints yet.
 
