@@ -1,20 +1,36 @@
-FROM nixos/nix
-WORKDIR /app
-
-RUN nix-env -iA nixpkgs.nixFlakes nixpkgs.curl
-RUN echo "experimental-features = flakes nix-command" >> /etc/nix/nix.conf
-
-COPY tailwind.config.js .
-COPY go.mod go.sum main.go ./
+FROM golang:1.25-alpine AS build
+WORKDIR /src
+COPY go.mod go.sum ./
+RUN go mod download
+COPY main.go ./
 COPY internal internal
 COPY components components
-COPY flake.lock flake.nix ./
+RUN go run github.com/a-h/templ/cmd/templ@v0.2.747 generate
+RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/htmx-blog .
 
-RUN nix build .#htmx-blog
+FROM node:24-alpine AS styles
+WORKDIR /src
+COPY package.json package-lock.json uno.config.ts ./
+RUN npm ci --ignore-scripts
+COPY components components
+COPY static/uno.css static/uno.css
+RUN CI=1 npx unocss -c uno.config.ts --minify
 
-COPY static static
-RUN nix run .#tailwindcss -- -i static/tw.css -o static/main.css --minify
-
+FROM alpine:3.22 AS images
+RUN apk add --no-cache libwebp-tools
+WORKDIR /src
 COPY content content
+COPY scripts/optimize-images.sh ./
+RUN sh optimize-images.sh content
 
-CMD ./result/bin/htmx-blog
+FROM alpine:3.22
+RUN apk add --no-cache ca-certificates
+WORKDIR /app
+COPY --from=build /out/htmx-blog ./htmx-blog
+COPY --from=build /src/components/index.xml ./components/index.xml
+COPY static ./static
+COPY --from=styles /src/static/main.css ./static/main.css
+COPY --from=images /src/content ./content
+ENV ROOT_PATH=/app
+EXPOSE 3000
+CMD ["./htmx-blog"]

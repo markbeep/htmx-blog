@@ -1,13 +1,15 @@
 module github.com/markbeep/htmx-blog
 
-go 1.21
+go 1.25
 
 require (
 	github.com/a-h/templ v0.2.747
 	github.com/alecthomas/chroma/v2 v2.10.0
+	github.com/andybalholm/brotli v1.2.6
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-chi/httplog v0.3.2
 	github.com/go-chi/httplog/v2 v2.0.7
+	github.com/klauspost/compress v1.20.3
 	github.com/yuin/goldmark v1.6.0
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc
 	go.abhg.dev/goldmark/frontmatter v0.1.0

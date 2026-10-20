@@ -1,17 +1,16 @@
 package components
 
 templ Index() {
-    @Base("Hello, I'm Mark", "Mark's coding blog posts") {
+    @Base("Hello, I'm Mark", "Mark's mostly coding blog posts") {
         <div class="h-dvh w-dvw flex flex-col justify-center items-center dark:bg-slate-800/40 dark:text-slate-50 px-4">
             <div class="flex flex-col items-start">
                 <p class="text-2xl text-slate-500">mark</p>
                 <h1 class="gradient-text text-8xl sm:text-9xl font-extrabold select-none leading-none -mt-[0.45em]">csurgay</h1>
             </div>
-            <div hx-boost="true" class="flex flex-col sm:flex-row justify-center gap-x-8 gap-y-8 sm:gap-y-4 text-3xl text-center">
+            <div class="flex flex-col sm:flex-row justify-center gap-x-8 gap-y-8 sm:gap-y-4 text-3xl text-center">
                 <a
                     class="dark:text-slate-50 underline underline-offset-[16px]"
                     href="/posts"
-                    preload="mouseover"
                 >posts</a>
                 <a
                     class="dark:text-slate-50 underline underline-offset-[16px]"
@@ -20,12 +19,10 @@ templ Index() {
                 <a
                     class="dark:text-slate-50 underline underline-offset-[16px]"
                     href="/polyring"
-                    preload="mouseover"
                 >polyring</a>
                 <a
                     class="dark:text-slate-50 underline underline-offset-[16px]"
                     href="/about"
-                    preload="mouseover"
                 >who is mark?</a>
             </div>
         </div>

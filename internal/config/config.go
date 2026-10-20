@@ -12,7 +12,7 @@ import (
 	"go.abhg.dev/goldmark/frontmatter"
 )
 
-var ContentFormats = []string{"jpg", "jpeg", "gif", "png", "gif", "shortcut"}
+var ContentFormats = []string{"jpg", "jpeg", "gif", "png", "webp", "shortcut"}
 
 var Markdown = goldmark.New(
 	goldmark.WithExtensions(

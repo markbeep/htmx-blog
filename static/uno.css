@@ -1,0 +1,151 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border: 0 solid var(--un-default-border-color, #e5e7eb);
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.5;
+}
+body {
+  margin: 0;
+  line-height: inherit;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+p,
+ul,
+ol,
+hr,
+figure,
+blockquote,
+pre {
+  margin: 0;
+}
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+hr {
+  height: 0;
+  color: inherit;
+  border-top-width: 1px;
+}
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+code,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 1em;
+}
+@font-face {
+  font-family: "Gothic";
+  src: url("/static/DidactGothic-Regular-subset.woff2") format("woff2");
+  font-display: swap;
+}
+header {
+  @apply text-4xl mt-10 mb-8 text-slate-400;
+}
+h1 {
+  @apply text-3xl mt-10 mb-8 text-slate-400;
+}
+h2 {
+  @apply text-2xl mt-8 mb-6 text-slate-400;
+}
+h3 {
+  @apply text-xl mt-6 mb-4 text-slate-400;
+}
+h4 {
+  @apply text-lg mt-4 mb-2 text-slate-400;
+}
+p {
+  @apply my-2;
+}
+hr {
+  @apply w-1/2 my-4;
+}
+ul {
+  @apply list-disc ml-4;
+}
+ol {
+  @apply list-decimal ml-4 my-2;
+}
+a {
+  @apply underline underline-offset-2;
+}
+a {
+  @apply dark:text-slate-400;
+}
+a {
+  @apply 'sm:hover:dark:text-slate-500';
+}
+a {
+  @apply 'sm:hover:text-slate-500';
+}
+a {
+  @apply 'active:dark:text-slate-500';
+}
+a {
+  @apply 'active:text-slate-500';
+}
+a {
+  @apply transition duration-300;
+}
+img {
+  @apply mx-auto my-4;
+}
+* {
+  @apply font-gothic;
+}
+body {
+  @apply bg-slate-800;
+}
+code,
+code span {
+  @apply font-mono;
+}
+code:not(pre > code) {
+  @apply bg-gray-950 py-0.5 px-1 rounded-md;
+}
+code:not(pre > code) {
+  @apply border-slate-400 border;
+}
+mjx-container {
+  display: inline-block;
+}
+.gradient-text {
+  background: linear-gradient(to right, #94a3b8, #38bdf8, #818cf8, #94a3b8);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease-in-out infinite;
+  padding-bottom: 0.15em;
+}
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}

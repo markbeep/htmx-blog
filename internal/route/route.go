@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
@@ -47,6 +48,25 @@ type PostsHandler struct {
 }
 
 var rootPath = os.Getenv("ROOT_PATH")
+
+var imageSourcePattern = regexp.MustCompile(`(src=")([^"]+\.(?:png|jpe?g|gif))(")`)
+
+// rewriteImageSources points post images at the WebP files generated for the
+// content directory, falling back to the original when no WebP exists.
+func rewriteImageSources(html []byte) []byte {
+	return imageSourcePattern.ReplaceAllFunc(html, func(match []byte) []byte {
+		parts := imageSourcePattern.FindSubmatch(match)
+		source := string(parts[2])
+		if !strings.HasPrefix(source, "/content/") {
+			return match
+		}
+		webp := source[:len(source)-len(filepath.Ext(source))] + ".webp"
+		if _, err := os.Stat(filepath.Join(rootPath, strings.TrimPrefix(webp, "/"))); err != nil {
+			return match
+		}
+		return []byte(string(parts[1]) + webp + string(parts[3]))
+	})
+}
 
 func (ph *PostsHandler) sortPosts() {
 	ph.sortedPosts = []*Post{}
@@ -100,6 +120,9 @@ func Content(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	path := strings.Trim(r.URL.Path, "/")
+	if strings.HasSuffix(strings.ToLower(path), ".webp") {
+		w.Header().Set("Content-Type", "image/webp")
+	}
 	http.ServeFile(w, r, filepath.Join(rootPath, path))
 }
 
@@ -157,7 +180,7 @@ func (ph *PostsHandler) ConvertMarkdown(inPath string) error {
 	ph.posts = map[string]*Post{}
 	ph.sortedPosts = []*Post{}
 
-	inPath = strings.Trim(inPath, "/")
+	inPath = filepath.Clean(inPath)
 
 	// Search all markdown files
 	err := filepath.Walk(inPath, func(path string, info fs.FileInfo, err error) error {
@@ -182,7 +205,7 @@ func (ph *PostsHandler) ConvertMarkdown(inPath string) error {
 			return nil
 		}
 		config.Markdown.Convert(mdFile, &postHtmlBuffer, parser.WithContext(ctx))
-		post.Buffer = postHtmlBuffer.Bytes()
+		post.Buffer = rewriteImageSources(postHtmlBuffer.Bytes())
 
 		// parse post metadata
 		getMarkdownMetadata(&post, &ctx)

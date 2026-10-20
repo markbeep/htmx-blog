@@ -1,15 +1,19 @@
 {
   "name": "htmx-blog",
   "version": "1.0.0",
-  "description": "This is my [personal blog](https://rkma.dev). It started out as a simple project to practice using [htmx](https://htmx.org/) to make it an extremely lightweight and efficient website and [tailwindcss](https://tailwindcss.com/) for the styling.",
-  "main": "tailwind.config.js",
-  "scripts": {},
+  "description": "This is my [personal blog](https://csur.gay). It is a lightweight static blog built with Go, templ, and UnoCSS.",
+  "main": "uno.config.ts",
+  "scripts": {
+    "css": "CI=1 unocss -c uno.config.ts --minify",
+    "css:watch": "CI=1 unocss -c uno.config.ts --watch"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.39.0",
-    "@types/node": "^20.8.10"
+    "@types/node": "^20.8.10",
+    "unocss": "^66.11.0"
   },
   "dependencies": {
     "playwright": "^1.39.0"

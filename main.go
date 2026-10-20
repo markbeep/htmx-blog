@@ -38,6 +38,7 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.GetHead)
 	r.Use(route.MiddlewareLogging(*logLevel))
+	r.Use(route.Compression)
 
 	r.Get("/", templ.Handler(components.Index()).ServeHTTP)
 	r.Get("/health", templ.Handler(components.Health()).ServeHTTP)

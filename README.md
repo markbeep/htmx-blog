@@ -4,8 +4,8 @@
 ![Deploy Dockerfile](https://img.shields.io/github/actions/workflow/status/markbeep/htmx-blog/build.yml?logo=kubernetes&logoColor=%23FFFFFF&label=Deploy&link=https%3A%2F%2Fgithub.com%2Fmarkbeep%2Fhtmx-blog%2Factions)
 ![Go version](https://img.shields.io/github/go-mod/go-version/markbeep/htmx-blog?logo=go)
 
-This is my [personal blog](https://rkma.dev). It started out as a simple project to practice using [htmx](https://htmx.org/) to make
-it an extremely lightweight and efficient website and [tailwindcss](https://tailwindcss.com/) for the styling.
+This is my [personal blog](https://rkma.dev). It is a lightweight and efficient static site built with Go, [templ](https://templ.guide/),
+and [UnoCSS](https://unocss.dev/).
 
 One important requirement was that all my blog posts were to be written in markdown (in `/content`). It then turned out to be
 a bigger challenge to get the markdown file generation working than actually creating the blog. I first started out using [pandoc](https://pandoc.org/)
@@ -20,22 +20,34 @@ look into the `mise.toml` file for the exact versions required.
 
 Justfile makes it easier to _just_ run the required programs. Look into the `justfile` file to see the full commands.
 
-1. Run templ to generate the go files that are then required:
+1. Install the frontend dependencies:
+
+   ```sh
+   npm install
+   ```
+
+2. Run templ to generate the go files that are then required:
 
    ```sh
    templ generate
    ```
 
-2. Run the webserver:
+3. Run the webserver:
 
    ```sh
    just d
    ```
 
-3. In a separate terminal, run tailwindcss to continously update the css files as required:
+4. In a separate terminal, run UnoCSS to continuously update the CSS file:
    ```sh
-   just tw
+   just css-watch
    ```
+
+Blog post images are converted to WebP at build time. To do the same locally (requires `cwebp`/`gif2webp` from libwebp or ImageMagick):
+
+```sh
+just webp
+```
 
 ### Docker
 
@@ -45,8 +57,8 @@ It's also possible to start up the website using [Docker](https://www.docker.com
 docker compose up --build
 ```
 
-This will build and start up the website as well as run the playwright tests. If you're building for arm64, you'll need to modify the Dockerfile and swap out
-the tailwindcss CLI tool installation for the arm64 version.
+The image is built in multiple Alpine stages: Go builds the server, Node runs UnoCSS, and libwebp converts post images.
+The container serves brotli when the client accepts it, falls back to gzip, and otherwise sends uncompressed responses.
 
 ## Testing
 
@@ -58,22 +70,9 @@ docker build -t htmx-playwright -f e2e/Dockerfile.playwright .
 docker run --rm -it --network host htmx-playwright /bin/bash
 ```
 
-## Nix
-
-With the `flake.nix` and `flake.lock` files you can set up local development with the exact same dependency versions.
-
-```bash
-nix develop # downloads all required dependencies
-nix build .#htmx-blog # build the blog
-nix run .#htmx-blog # build and run the blog locally
-nix run .#tailwindcss -- -i static/tw.css -o static/main.css --watch
-```
-
-**Note:** Tailwindcss still needs to be executed manually on the side to generate the `static/main.css` file
-
 # Creating Posts
 
-Posts can be created by executing the `post.sh` script. Simply execute the following:
+Posts can be created with the `just new` recipe. Simply execute the following:
 
 ```sh
 just new content/posts/name_of_post

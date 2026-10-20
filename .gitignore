@@ -1,6 +1,3 @@
-.direnv
-.envrc
-shell.nix
 tmp
 htmx-blog
 static/main.css
@@ -18,5 +15,7 @@ node_modules
 /blob-report/
 /playwright/.cache/
 *_templ.go
-result
 vendor
+
+# generated at build time
+content/**/*.webp

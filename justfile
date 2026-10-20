@@ -2,10 +2,16 @@
 
 default: dev
 
-alias tw := tailwindcss
+alias tw := css
 
-tailwindcss:
-    tailwindcss -i static/tw.css -o static/main.css --watch
+css:
+    npm run css
+
+css-watch:
+    npm run css:watch
+
+webp:
+    sh scripts/optimize-images.sh content
 
 # Create a new empty blogpost template under the path.
 [script("bash")]
